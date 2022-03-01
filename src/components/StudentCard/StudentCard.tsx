@@ -9,7 +9,6 @@ interface StudentCardProps {
 }
 
 const StudentCard: React.FC<StudentCardProps> = ({ student, ...rest }) => {
-  console.log(student)
   return (
     <TouchableOpacity style={style.container} {...rest}>
       {student.imageUrl ? <Image style={style.avatar} source={{ uri: student.imageUrl }} /> : <AvatarIcon width={55} height={55}/>}

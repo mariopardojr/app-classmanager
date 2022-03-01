@@ -25,7 +25,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginTop: 40
+    marginTop: 60
   },
   greeting: {
     fontFamily: fonts.text,
