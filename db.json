@@ -1,0 +1,39 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "name": "Mellanie Reis",
+      "imageUrl": ""
+    },
+    {
+      "id": 2,
+      "name": "Mariano Aranha",
+      "imageUrl": "http://lorempixel.com.br/100/100?2"
+    },
+    {
+      "id": 3,
+      "name": "Juan Falcão",
+      "imageUrl": "http://lorempixel.com.br/100/100?3"
+    },
+    {
+      "id": 4,
+      "name": "Éder Viana",
+      "imageUrl": "http://lorempixel.com.br/100/100?4"
+    },
+    {
+      "id": 5,
+      "name": "Éder Viana",
+      "imageUrl": "http://lorempixel.com.br/100/100?5"
+    },
+    {
+      "id": 6,
+      "name": "Éder Viana",
+      "imageUrl": "http://lorempixel.com.br/100/100?6"
+    },
+    {
+      "id": 7,
+      "name": "Éder Viana",
+      "imageUrl": "http://lorempixel.com.br/100/100?7"
+    }
+  ]
+}
