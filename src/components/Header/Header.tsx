@@ -6,7 +6,7 @@ import AvatarIcon from '../../assets/user-orange.svg'
 
 const Header: React.FC<HeaderProps> = ({
   text = 'Hello, ',
-  username = 'User',
+  username,
   image
 }) => {
   return (

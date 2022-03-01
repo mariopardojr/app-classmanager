@@ -5,8 +5,12 @@ import AddIcon from '../../assets/add.svg'
 import fonts from '../../styles/fonts';
 import StudentList from '../../components/StudentList/StudentList';
 import { LinearGradient } from 'expo-linear-gradient';
+import { HomeProps } from './types';
 
-const Home: React.FC = () => {
+const Home: React.FC<HomeProps> = ({ navigation }) => {
+
+  const handleNavigateToRegister = () => navigation.navigate('Student Register')
+
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
@@ -17,8 +21,8 @@ const Home: React.FC = () => {
             <Text style={style.paragraph}>pick a student to view details</Text>
             <Text style={style.paragraph}>or add a new one.</Text>
           </View>
-          <TouchableOpacity>
-            <AddIcon width={65} />
+          <TouchableOpacity onPress={handleNavigateToRegister}>
+            <AddIcon width={65}/>
           </TouchableOpacity>
         </View>
         <StudentList />
