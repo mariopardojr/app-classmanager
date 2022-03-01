@@ -4,7 +4,6 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import appJSON from './app.json';
 import App from './App';
 
-
 export default function Main() {
   return (
     <PaperProvider>

@@ -13,8 +13,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <Header image='http://lorempixel.com.br/100/100?12'/>
+      <View style={{ flex: 1, paddingVertical: 40 }}>
+        <Header image='http://lorempixel.com.br/100/100?12' username='User'/>
         <View style={style.infoContainer}>
           <View>
             <Text style={style.paragraph}>Please,</Text>
