@@ -1,20 +1,41 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Home from './src/pages/Home/Home';
+import {
+  useFonts,
+  Jost_400Regular,
+  Jost_600SemiBold,
+  Jost_700Bold,
+} from '@expo-google-fonts/jost';
+import AppLoading from 'expo-app-loading';
 
-export default function App() {
+
+const App = () => {
+  const [fontsLoaded] = useFonts({
+    Jost_400Regular,
+    Jost_600SemiBold,
+    Jost_700Bold,
+  });
+
+  if (!fontsLoaded) return <AppLoading />;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
+      <StatusBar style="light" />
+      <View style={style.container}>
+        <Home />
+      </View>
+    </LinearGradient>
   );
-}
+};
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    flexDirection: 'column',
+    paddingTop: 20,
+  }
 });
+
+export default App;
