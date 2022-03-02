@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import { KeyboardTypeOptions, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
@@ -25,8 +25,9 @@ interface InputProps {
   onFocus?: (args: any) => void;
   onBlur?: (args: any) => void;
   render?: (props: RenderProps) => ReactNode;
-  helperText: string;
-  visible: boolean;
+  helperText: string | undefined;
+  visible: boolean | undefined;
+  keyboardType?: KeyboardTypeOptions;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -37,11 +38,12 @@ const Input: React.FC<InputProps> = ({
   error,
   helperText,
   visible,
+  keyboardType = 'default',
   ...otherProps
 
 }) => {
   return (
-    <View style={inputStyle.container}>
+    <View>
       <TextInput
         {...otherProps}
         style={style}
@@ -50,6 +52,7 @@ const Input: React.FC<InputProps> = ({
         onChangeText={onChangeText}
         value={value}
         error={error}
+        keyboardType={keyboardType}
       />
       <HelperText type="error" visible={visible}>
         {helperText}
@@ -57,11 +60,5 @@ const Input: React.FC<InputProps> = ({
     </View>
   )
 }
-
-const inputStyle = StyleSheet.create({
-  container: {
-    marginBottom: 10,
-  }
-})
 
 export default Input;
