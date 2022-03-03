@@ -1,14 +1,18 @@
 {
   "expo": {
-    "name": "class-manager",
-    "slug": "class-manager",
+    "name": "Class Manager",
+    "slug": "ClassManager",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8C05CB"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,9 +22,10 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.mariopardojr.classmanager",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#8C05CB"
       }
     },
     "web": {

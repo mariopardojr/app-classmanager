@@ -47,14 +47,14 @@ const Input: React.FC<InputProps> = ({
       <TextInput
         {...otherProps}
         style={style}
-        mode="outlined"
+        mode="flat"
         label={label}
         onChangeText={onChangeText}
         value={value}
         error={error}
         keyboardType={keyboardType}
       />
-      <HelperText type="error" visible={visible}>
+      <HelperText style={{ color: '#e60000' }} type="error" visible={visible}>
         {helperText}
       </HelperText>
     </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { getStudents } from '../../services/studentService';
 import { Student } from '../../services/types';
 import StudentCard from '../StudentCard/StudentCard';
@@ -16,7 +16,7 @@ const StudentList: React.FC = () => {
   }, [])
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <FlatList
         data={students}
         keyExtractor={(student) => String(student.id)}
@@ -27,7 +27,7 @@ const StudentList: React.FC = () => {
           <StudentCard student={student} />
         )}
       />
-    </SafeAreaView >
+    </View >
   )
 }
 

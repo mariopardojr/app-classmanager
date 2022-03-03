@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../components/Header/Header';
 import AddIcon from '../../assets/add.svg'
 import fonts from '../../styles/fonts';
@@ -13,20 +13,20 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-      <View style={{ flex: 1, paddingVertical: 40 }}>
-        <Header image='http://lorempixel.com.br/100/100?12' username='User'/>
-        <View style={style.infoContainer}>
-          <View>
-            <Text style={style.paragraph}>Please,</Text>
-            <Text style={style.paragraph}>pick a student to view details</Text>
-            <Text style={style.paragraph}>or add a new one.</Text>
+        <View style={{ paddingTop: 40, flex: 1 }}>
+          <Header image='http://lorempixel.com.br/100/100?12' username='User'/>
+          <View style={style.infoContainer}>
+            <View>
+              <Text style={style.paragraph}>Please,</Text>
+              <Text style={style.paragraph}>pick a student to view details</Text>
+              <Text style={style.paragraph}>or add a new one.</Text>
+            </View>
+            <TouchableOpacity onPress={handleNavigateToRegister}>
+              <AddIcon width={65}/>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={handleNavigateToRegister}>
-            <AddIcon width={65}/>
-          </TouchableOpacity>
+          <StudentList />
         </View>
-        <StudentList />
-      </View>
     </LinearGradient>
   );
 };

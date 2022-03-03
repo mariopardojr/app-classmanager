@@ -35,6 +35,7 @@ const style = StyleSheet.create({
   },
   studentName: {
     fontFamily: fonts.heading,
+    textAlign: 'justify',
     fontSize: 16,
     color: '#fff',
     margin: 10
