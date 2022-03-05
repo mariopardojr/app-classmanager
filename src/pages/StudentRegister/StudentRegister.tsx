@@ -45,7 +45,10 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
               <Formik
                 initialValues={initialValues}
                 validationSchema={registerSchema}
-                onSubmit={handleStudentRegister}
+                onSubmit={(values, actions) => {
+                  handleStudentRegister(values)
+                  actions.resetForm()
+                }}
                 validateOnBlur
               >
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
@@ -123,7 +126,10 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                 />
                 <Button
                   style={{ marginTop: 10 }}
-                  onPress={handleSubmit}
+                  onPress={() => {
+                    handleSubmit()
+                    setIsStudent(true)
+                  }}
                   mode='contained'
                   color="#FA743E"
                 >
