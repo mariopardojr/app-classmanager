@@ -3,17 +3,18 @@ import fonts from '../../styles/fonts';
 
 export const style = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 60,
-  },
-  paragraph: {
-    fontSize: 18,
-    fontFamily: fonts.text,
-    color: '#fff',
-  },
-  infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  greeting: {
+    fontFamily: fonts.text,
+    fontSize: 32,
+    color: '#fff',
+  },
+  username: {
+    fontFamily: fonts.heading,
+    fontSize: 32,
+    color: '#fff',
   },
 });

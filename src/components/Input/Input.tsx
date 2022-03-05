@@ -1,10 +1,16 @@
 import React, { ReactNode } from 'react';
-import { GestureResponderEvent, KeyboardTypeOptions, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import {
+  GestureResponderEvent,
+  KeyboardTypeOptions,
+  StyleProp,
+  TextStyle,
+  View,
+} from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
 interface InputProps {
-  style: StyleProp<TextStyle>
+  style: StyleProp<TextStyle>;
   left?: ReactNode;
   right?: ReactNode;
   value?: string;
@@ -22,14 +28,14 @@ interface InputProps {
   dense?: boolean;
   multiline?: boolean;
   numberOfLines?: number;
-  onFocus?: (args: any) => void;
-  onBlur?: (args: any) => void;
+  onFocus?: (args: unknown) => void;
+  onBlur?: (args: unknown) => void;
   render?: (props: RenderProps) => ReactNode;
   helperText: string | undefined;
   visible: boolean | undefined;
   keyboardType?: KeyboardTypeOptions;
-  editable?: boolean | undefined
-  onPressIn?: (event: GestureResponderEvent) => void
+  editable?: boolean | undefined;
+  onPressIn?: (event: GestureResponderEvent) => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -42,7 +48,6 @@ const Input: React.FC<InputProps> = ({
   visible,
   keyboardType = 'default',
   ...otherProps
-
 }) => {
   return (
     <View>
@@ -60,7 +65,7 @@ const Input: React.FC<InputProps> = ({
         {helperText}
       </HelperText>
     </View>
-  )
-}
+  );
+};
 
 export default Input;

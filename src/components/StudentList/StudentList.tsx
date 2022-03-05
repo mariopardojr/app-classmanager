@@ -1,33 +1,28 @@
-import React, { useCallback, useState } from 'react';
-import { Alert, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { FlatList, RefreshControl, View } from 'react-native';
+import { style } from '../../pages/Home/styles';
 import StudentCard from '../StudentCard/StudentCard';
 import { StudentListProps } from './types';
 
-const StudentList: React.FC<StudentListProps> = ({ students, isRefreshing, handleRefresh }) => {
+const StudentList: React.FC<StudentListProps> = ({
+  students,
+  isRefreshing,
+  handleRefresh,
+}) => {
   return (
     <View style={style.container}>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh}/>
+          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
         }
         data={students}
         keyExtractor={(student) => String(student.id)}
         showsVerticalScrollIndicator={false}
-        // onEndReachedThreshold={0.1}
         numColumns={2}
-        renderItem={({ item: student }) => (
-          <StudentCard student={student} />
-        )}
+        renderItem={({ item: student }) => <StudentCard student={student} />}
       />
-    </View >
-  )
-}
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  }
-})
+    </View>
+  );
+};
 
 export default StudentList;
