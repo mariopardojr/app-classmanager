@@ -22,7 +22,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-        <View style={{ paddingTop: 40, flex: 1 }}>
+        <View style={style.container}>
           <Header image='http://lorempixel.com.br/100/100?12' username='User'/>
           <View style={style.infoContainer}>
             <View>
@@ -41,6 +41,10 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 60,
+  },
   paragraph: {
     fontSize: 18,
     fontFamily: fonts.text,
