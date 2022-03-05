@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
-import { style } from '../../pages/Home/styles';
+import { style } from './styles';
 import StudentCard from '../StudentCard/StudentCard';
 import { StudentListProps } from './types';
 
