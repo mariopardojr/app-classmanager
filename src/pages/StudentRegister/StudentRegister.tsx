@@ -29,12 +29,12 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
   const closeMenu = () => setVisible(false);
 
   const levels = [
-    { id: '1', name: 'Beginner/Elementary'},
-    { id: '2', name: 'Pre Intermediate'},
-    { id: '3', name: 'Intermediate'},
-    { id: '4', name: 'Upper Intermediate'},
-    { id: '5', name: 'Advanced'},
-    { id: '6', name: 'Proficient'},
+    { id: '1', name: 'Beginner/Elementary', icon: 'numeric-1-circle-outline'},
+    { id: '2', name: 'Pre Intermediate', icon: 'numeric-2-circle-outline' },
+    { id: '3', name: 'Intermediate', icon: 'numeric-3-circle-outline' },
+    { id: '4', name: 'Upper Intermediate', icon: 'numeric-4-circle-outline' },
+    { id: '5', name: 'Advanced', icon: 'numeric-5-circle-outline' },
+    { id: '6', name: 'Proficient', icon: 'numeric-6-circle-outline'},
   ]
 
   const handleSwitch = () => {
@@ -161,6 +161,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                       levels.map((level) => (
                         <Menu.Item
                           key={level.id}
+                          icon={level.icon}
                           title={level.name}
                           onPress={() => {
                             setFieldValue('englishLevel', level.name)
