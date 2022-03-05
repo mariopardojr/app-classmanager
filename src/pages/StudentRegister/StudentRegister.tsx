@@ -53,89 +53,89 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
               >
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
                 <View style={style.formContainer}>
-                <Input
-                  style={style.input}
-                  error={!!errors.name && !!touched.name}
-                  label="Name"
-                  value={values.name}
-                  onBlur={handleBlur('name')}
-                  onChangeText={handleChange('name')}
-                  right={<TextInput.Icon name="account" color="#5201ba"/>}
-                  helperText={errors.name}
-                  visible={!!touched.name && !!errors.name}
-                />
-                <Input
-                  style={style.input}
-                  error={!!errors.age && !!touched.age}
-                  label="Age"
-                  value={values.age}
-                  onBlur={handleBlur('age')}
-                  onChangeText={handleChange('age')}
-                  right={<TextInput.Icon name="calendar-clock" color="#5201ba"/>}
-                  helperText={'This field is required'}
-                  visible={!!touched.age && !!errors.age}
-                  keyboardType='numeric'
-                />
-                <View style={style.jobContainer}>
                   <Input
-                    style={{ ...style.input, width: 170 }}
-                    error={!!errors.job && !!touched.job}
-                    disabled={isStudent}
-                    label="Job"
-                    value={values.job}
-                    onBlur={handleBlur('job')}
-                    onChangeText={handleChange('job')}
-                    right={<TextInput.Icon name="briefcase" color="#5201ba" disabled={isStudent}/>}
-                    helperText={'This field is required'}
-                    visible={!!errors.job && !!touched.job}
+                    style={style.input}
+                    error={!!errors.name && !!touched.name}
+                    label="Name"
+                    value={values.name}
+                    onBlur={handleBlur('name')}
+                    onChangeText={handleChange('name')}
+                    right={<TextInput.Icon name="account" color="#5201ba"/>}
+                    helperText={errors.name}
+                    visible={!!touched.name && !!errors.name}
                   />
-                  <View style={style.toogle}>
-                    <Text style={style.toogleText}>Is he/she student?</Text>
-                    <Switch
-                      value={isStudent}
-                      onValueChange={() => {
-                        handleSwitch()
-                        setFieldValue('job', isStudent ? '' : 'Student')
-                      }}
-                      color="#FA743E"
+                  <Input
+                    style={style.input}
+                    error={!!errors.age && !!touched.age}
+                    label="Age"
+                    value={values.age}
+                    onBlur={handleBlur('age')}
+                    onChangeText={handleChange('age')}
+                    right={<TextInput.Icon name="calendar-clock" color="#5201ba"/>}
+                    helperText={'This field is required'}
+                    visible={!!touched.age && !!errors.age}
+                    keyboardType='numeric'
+                  />
+                  <View style={style.jobContainer}>
+                    <Input
+                      style={{ ...style.input, width: 170 }}
+                      error={!!errors.job && !!touched.job}
+                      disabled={isStudent}
+                      label="Job"
+                      value={values.job}
+                      onBlur={handleBlur('job')}
+                      onChangeText={handleChange('job')}
+                      right={<TextInput.Icon name="briefcase" color="#5201ba" disabled={isStudent}/>}
+                      helperText={'This field is required'}
+                      visible={!!errors.job && !!touched.job}
                     />
+                    <View style={style.toogle}>
+                      <Text style={style.toogleText}>Is he/she student?</Text>
+                      <Switch
+                        value={isStudent}
+                        onValueChange={() => {
+                          handleSwitch()
+                          setFieldValue('job', isStudent ? '' : 'Student')
+                        }}
+                        color="#FA743E"
+                      />
+                    </View>
                   </View>
+                  <Input
+                    style={style.input}
+                    error={!!errors.grade && !!touched.grade}
+                    disabled={!isStudent}
+                    label="Grade"
+                    value={values.grade}
+                    onBlur={handleBlur('grade')}
+                    onChangeText={handleChange('grade')}
+                    right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent}/>}
+                    helperText={'This field is required'}
+                    visible={!!errors.grade && !!touched.grade}
+                  />
+                  <Input
+                    style={style.input}
+                    error={!!errors.englishLevel && !!touched.englishLevel}
+                    label="English level"
+                    value={values.englishLevel}
+                    onBlur={handleBlur('englishLevel')}
+                    onChangeText={handleChange('englishLevel')}
+                    right={<TextInput.Icon name="head-lightbulb" color="#5201ba"/>}
+                    helperText={'This field is required'}
+                    visible={!!errors.englishLevel && !!touched.englishLevel}
+                  />
+                  <Button
+                    style={{ marginTop: 10 }}
+                    onPress={() => {
+                      handleSubmit()
+                      setIsStudent(true)
+                    }}
+                    mode='contained'
+                    color="#FA743E"
+                  >
+                    <Text style={style.buttonText}>Submit</Text>
+                  </Button>
                 </View>
-                <Input
-                  style={style.input}
-                  error={!!errors.grade && !!touched.grade}
-                  disabled={!isStudent}
-                  label="Grade"
-                  value={values.grade}
-                  onBlur={handleBlur('grade')}
-                  onChangeText={handleChange('grade')}
-                  right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent}/>}
-                  helperText={'This field is required'}
-                  visible={!!errors.grade && !!touched.grade}
-                />
-                <Input
-                  style={style.input}
-                  error={!!errors.englishLevel && !!touched.englishLevel}
-                  label="English level"
-                  value={values.englishLevel}
-                  onBlur={handleBlur('englishLevel')}
-                  onChangeText={handleChange('englishLevel')}
-                  right={<TextInput.Icon name="head-lightbulb" color="#5201ba"/>}
-                  helperText={'This field is required'}
-                  visible={!!errors.englishLevel && !!touched.englishLevel}
-                />
-                <Button
-                  style={{ marginTop: 10 }}
-                  onPress={() => {
-                    handleSubmit()
-                    setIsStudent(true)
-                  }}
-                  mode='contained'
-                  color="#FA743E"
-                >
-                  <Text style={style.buttonText}>Submit</Text>
-                </Button>
-              </View>
               )}
               </Formik>
             </KeyboardAvoidingView>
