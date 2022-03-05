@@ -1,8 +1,21 @@
-import { api } from './api'
+import { api } from './api';
 import { Student } from './types';
 
-
-export const getStudents = async (): Promise<Student[]> => {
+const getStudents = async (): Promise<Student[]> => {
   const { data } = await api.get<Student[]>('/students');
   return data;
-}
+};
+
+const createStudent = async (student: any) => {
+  await api.post('/students', {
+    ...student,
+    imageUrl: 'http://lorempixel.com.br/100/100?',
+  });
+};
+
+const StudentService = {
+  getStudents,
+  createStudent,
+};
+
+export default StudentService;

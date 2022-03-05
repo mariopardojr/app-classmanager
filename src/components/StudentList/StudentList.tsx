@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { getStudents } from '../../services/studentService';
-import { Student } from '../../services/types';
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import StudentCard from '../StudentCard/StudentCard';
+import { StudentListProps } from './types';
 
-const StudentList: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getStudents()
-      setStudents(data)
-    }
-    fetchData()
-  }, [])
-
+const StudentList: React.FC<StudentListProps> = ({ students }) => {
   return (
     <View style={style.container}>
       <FlatList
