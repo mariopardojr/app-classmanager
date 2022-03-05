@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { KeyboardTypeOptions, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import { GestureResponderEvent, KeyboardTypeOptions, StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 import { HelperText, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
@@ -28,6 +28,8 @@ interface InputProps {
   helperText: string | undefined;
   visible: boolean | undefined;
   keyboardType?: KeyboardTypeOptions;
+  editable?: boolean | undefined
+  onPressIn?: (event: GestureResponderEvent) => void
 }
 
 const Input: React.FC<InputProps> = ({

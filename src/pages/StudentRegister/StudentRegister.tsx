@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Button, Switch, TextInput } from 'react-native-paper';
+import { Button, Menu, Switch, TextInput } from 'react-native-paper';
 import Header from '../../components/Header/Header';
 import fonts from '../../styles/fonts';
 import BackIcon from '../../assets/arrow-left.svg'
@@ -10,6 +10,7 @@ import Input from '../../components/Input/Input';
 import { registerValidationSchema as registerSchema } from './validation';
 import { Formik } from 'formik';
 import StudentService from '../../services/studentService';
+
 
 const initialValues = {
   name: '',
@@ -22,6 +23,19 @@ const initialValues = {
 const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
   const handleNavigateToGoBack = () => navigation.navigate('Home')
   const [isStudent, setIsStudent] = useState(true)
+  const [visible, setVisible] = useState(false)
+
+  const openMenu = () => setVisible(true);
+  const closeMenu = () => setVisible(false);
+
+  const levels = [
+    { id: '1', name: 'Beginner/Elementary'},
+    { id: '2', name: 'Pre Intermediate'},
+    { id: '3', name: 'Intermediate'},
+    { id: '4', name: 'Upper Intermediate'},
+    { id: '5', name: 'Advanced'},
+    { id: '6', name: 'Proficient'},
+  ]
 
   const handleSwitch = () => {
     setIsStudent((toogle) => !toogle)
@@ -51,7 +65,15 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                 }}
                 validateOnBlur
               >
-              {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
+              {({ values,
+                  errors,
+                  touched,
+                  handleBlur,
+                  handleChange,
+                  handleSubmit,
+                  setFieldValue,
+                  setFieldError
+              }) => (
                 <View style={style.formContainer}>
                   <Input
                     style={style.input}
@@ -72,7 +94,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                     onBlur={handleBlur('age')}
                     onChangeText={handleChange('age')}
                     right={<TextInput.Icon name="calendar-clock" color="#5201ba"/>}
-                    helperText={'This field is required'}
+                    helperText={errors.age}
                     visible={!!touched.age && !!errors.age}
                     keyboardType='numeric'
                   />
@@ -86,7 +108,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                       onBlur={handleBlur('job')}
                       onChangeText={handleChange('job')}
                       right={<TextInput.Icon name="briefcase" color="#5201ba" disabled={isStudent}/>}
-                      helperText={'This field is required'}
+                      helperText={errors.job}
                       visible={!!errors.job && !!touched.job}
                     />
                     <View style={style.toogle}>
@@ -95,6 +117,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                         value={isStudent}
                         onValueChange={() => {
                           handleSwitch()
+                          setFieldError('job', '')
                           setFieldValue('job', isStudent ? '' : 'Student')
                         }}
                         color="#FA743E"
@@ -110,20 +133,43 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                     onBlur={handleBlur('grade')}
                     onChangeText={handleChange('grade')}
                     right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent}/>}
-                    helperText={'This field is required'}
+                    helperText={errors.grade}
                     visible={!!errors.grade && !!touched.grade}
                   />
-                  <Input
-                    style={style.input}
-                    error={!!errors.englishLevel && !!touched.englishLevel}
-                    label="English level"
-                    value={values.englishLevel}
-                    onBlur={handleBlur('englishLevel')}
-                    onChangeText={handleChange('englishLevel')}
-                    right={<TextInput.Icon name="head-lightbulb" color="#5201ba"/>}
-                    helperText={'This field is required'}
-                    visible={!!errors.englishLevel && !!touched.englishLevel}
-                  />
+                  <Menu
+                    visible={visible}
+                    onDismiss={closeMenu}
+                    anchor={
+                      <TouchableOpacity onPress={openMenu}>
+                        <Input
+                        editable={false}
+                        style={style.input}
+                        error={!!errors.englishLevel && !!touched.englishLevel}
+                        label="English level"
+                        value={values.englishLevel}
+                        onBlur={handleBlur('englishLevel')}
+                        onChangeText={handleChange('englishLevel')}
+                        right={<TextInput.Icon name="head-lightbulb" color="#5201ba"/>}
+                        helperText={errors.englishLevel}
+                        visible={!!errors.englishLevel && !!touched.englishLevel}
+                        onPressIn={openMenu}
+                        />
+                      </TouchableOpacity>
+                    }
+                  >
+                    {
+                      levels.map((level) => (
+                        <Menu.Item
+                          key={level.id}
+                          title={level.name}
+                          onPress={() => {
+                            setFieldValue('englishLevel', level.name)
+                            closeMenu()
+                          }}
+                        />
+                      ))
+                    }
+                  </Menu>
                   <Button
                     style={{ marginTop: 10 }}
                     onPress={() => {

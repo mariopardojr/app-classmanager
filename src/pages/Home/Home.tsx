@@ -29,7 +29,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   useEffect(() => {
     (async () => {
-      fetchData
+      fetchData()
     })()
   }, [isFocused])
 

@@ -36,7 +36,7 @@
       "imageUrl": "http://lorempixel.com.br/100/100?7"
     },
     {
-      "name": "Mario Pardo",
+      "name": "Mario",
       "age": "24",
       "job": "Programmer",
       "grade": "",
@@ -45,22 +45,21 @@
       "id": 8
     },
     {
-      "name": "Mario Junior",
+      "name": "Mario Pardo",
       "age": "24",
       "job": "Programmer",
       "grade": "",
-      "englishLevel": "Intermedium",
+      "englishLevel": "Advanced",
       "imageUrl": "http://lorempixel.com.br/100/100?",
       "id": 9
-    },
+    }
+  ],
+  "users": [
     {
-      "name": "Aluno Teste",
-      "age": "19",
-      "job": "Student",
-      "grade": "1° grade ",
-      "englishLevel": "Intermedium",
-      "imageUrl": "http://lorempixel.com.br/100/100?",
-      "id": 10
+      "user": "Mário Pardo",
+      "email": "mariopardo@email.com",
+      "password": "minhasenhamuitocomplexa",
+      "role": "teacher"
     }
   ]
 }
