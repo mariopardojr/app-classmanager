@@ -6,7 +6,7 @@ const getStudents = async (): Promise<Student[]> => {
   return data;
 };
 
-const createStudent = async (student: any) => {
+const createStudent = async (student: Partial<Student>) => {
   await api.post('/students', {
     ...student,
     imageUrl: 'http://lorempixel.com.br/100/100?',

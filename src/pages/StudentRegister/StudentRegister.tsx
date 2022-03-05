@@ -5,11 +5,11 @@ import { Button, Switch, TextInput } from 'react-native-paper';
 import Header from '../../components/Header/Header';
 import fonts from '../../styles/fonts';
 import BackIcon from '../../assets/arrow-left.svg'
-import { StudentRegisterProps } from './types';
+import { StudentRegisterFormValues, StudentRegisterProps } from './types';
 import Input from '../../components/Input/Input';
-import StudentService from '../../services/studentService';
 import { registerValidationSchema as registerSchema } from './validation';
 import { Formik } from 'formik';
+import StudentService from '../../services/studentService';
 
 const initialValues = {
   name: '',
@@ -27,6 +27,10 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
     setIsStudent((toogle) => !toogle)
   }
 
+  const handleStudentRegister = (values: StudentRegisterFormValues) => {
+    StudentService.createStudent(values)
+  }
+
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
@@ -41,7 +45,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
               <Formik
                 initialValues={initialValues}
                 validationSchema={registerSchema}
-                onSubmit={(values) => console.log(values)}
+                onSubmit={handleStudentRegister}
                 validateOnBlur
               >
               {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
