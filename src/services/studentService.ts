@@ -1,5 +1,5 @@
 import { api } from './api';
-import { Student } from './types';
+import { Note, Student } from './types';
 
 const getRandomNumber = (): number => {
   return Math.floor(Math.random() * 1000);
@@ -17,9 +17,14 @@ const createStudent = async (student: Partial<Student>) => {
   });
 };
 
+const addNote = async (id: number, notes: Note[]) => {
+  await api.patch(`/students/${id}`, { notes });
+};
+
 const StudentService = {
   getStudents,
   createStudent,
+  addNote,
 };
 
 export default StudentService;
