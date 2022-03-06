@@ -1,4 +1,4 @@
-import { Student } from '../services/types';
+import { Student } from '../services/StudentService/types';
 
 type StudentDetailsParams = {
   student: Student;

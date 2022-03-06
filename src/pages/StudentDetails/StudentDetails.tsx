@@ -12,7 +12,7 @@ import { Button, Modal, Portal, TextInput } from 'react-native-paper';
 import NoteList from '../../components/NoteList/NoteList';
 import { Formik } from 'formik';
 import Input from '../../components/Input/Input';
-import StudentService from '../../services/studentService';
+import StudentService from '../../services/StudentService/studentService';
 import { validationSchema } from './validation';
 
 const initialValues = {

@@ -5,8 +5,8 @@ import AddIcon from '../../assets/add.svg';
 import StudentList from '../../components/StudentList/StudentList';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HomeProps } from './types';
-import StudentService from '../../services/studentService';
-import { Student } from '../../services/types';
+import StudentService from '../../services/StudentService/studentService';
+import { Student } from '../../services/StudentService/types';
 import { useIsFocused } from '@react-navigation/native';
 import { style } from './styles';
 

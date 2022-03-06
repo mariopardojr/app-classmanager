@@ -14,7 +14,7 @@ import { StudentRegisterFormValues } from './types';
 import Input from '../../components/Input/Input';
 import { registerValidationSchema as registerSchema } from './validation';
 import { Formik } from 'formik';
-import StudentService from '../../services/studentService';
+import StudentService from '../../services/StudentService/studentService';
 import { style } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';

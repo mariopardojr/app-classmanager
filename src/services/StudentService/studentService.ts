@@ -1,4 +1,4 @@
-import { api } from './api';
+import { api } from '../api';
 import { Note, Student } from './types';
 
 const getRandomNumber = (): number => {
