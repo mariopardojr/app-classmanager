@@ -17,4 +17,11 @@ export const style = StyleSheet.create({
     fontSize: 32,
     color: '#fff',
   },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 100,
+    borderColor: '#FA743E',
+    borderWidth: 2,
+  },
 });

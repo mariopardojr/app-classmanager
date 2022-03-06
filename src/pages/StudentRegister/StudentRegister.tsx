@@ -10,12 +10,15 @@ import {
 import { Button, Menu, Switch, TextInput } from 'react-native-paper';
 import Header from '../../components/Header/Header';
 import BackIcon from '../../assets/arrow-left.svg';
-import { StudentRegisterFormValues, StudentRegisterProps } from './types';
+import { StudentRegisterFormValues } from './types';
 import Input from '../../components/Input/Input';
 import { registerValidationSchema as registerSchema } from './validation';
 import { Formik } from 'formik';
 import StudentService from '../../services/studentService';
 import { style } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackRoutes } from '../../routes/types';
 
 const initialValues = {
   name: '',
@@ -25,8 +28,9 @@ const initialValues = {
   englishLevel: '',
 };
 
-const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
-  const handleNavigateToGoBack = () => navigation.navigate('Home');
+const StudentRegister: React.FC = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Register'>>();
   const [isStudent, setIsStudent] = useState(true);
   const [visible, setVisible] = useState(false);
 
@@ -42,6 +46,10 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
     { id: '6', name: 'Proficient', icon: 'numeric-6-circle-outline' },
   ];
 
+  const handleNavigate = () => {
+    navigation.navigate('Home');
+  };
+
   const handleSwitch = () => {
     setIsStudent((toogle) => !toogle);
   };
@@ -56,7 +64,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
         <ScrollView>
           <KeyboardAvoidingView>
             <View style={{ marginLeft: 15 }}>
-              <TouchableOpacity onPress={handleNavigateToGoBack}>
+              <TouchableOpacity onPress={handleNavigate}>
                 <BackIcon width={50} height={50} style={{ marginTop: 30 }} />
               </TouchableOpacity>
             </View>
@@ -126,7 +134,7 @@ const StudentRegister: React.FC<StudentRegisterProps> = ({ navigation }) => {
                       visible={!!errors.job && !!touched.job}
                     />
                     <View style={style.toogle}>
-                      <Text style={style.toogleText}>Is he/she student?</Text>
+                      <Text style={style.toogleText}>Is he/she a student?</Text>
                       <Switch
                         value={isStudent}
                         onValueChange={() => {

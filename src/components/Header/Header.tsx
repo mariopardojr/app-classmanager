@@ -16,10 +16,7 @@ const Header: React.FC<HeaderProps> = ({
         {username && <Text style={style.username}>{username}</Text>}
       </View>
       {image ? (
-        <Image
-          source={{ uri: image }}
-          style={{ width: 120, height: 120, borderRadius: 100 }}
-        />
+        <Image source={{ uri: image }} style={style.avatar} />
       ) : (
         <AvatarIcon width={150} height={150} />
       )}

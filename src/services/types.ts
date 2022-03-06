@@ -1,3 +1,9 @@
+export type Note = {
+  id: string;
+  note: string;
+  title: string;
+};
+
 export interface Student {
   id: number;
   name: string;
@@ -6,4 +12,5 @@ export interface Student {
   grade: string;
   englishLevel: string;
   imageUrl: string;
+  notes: Note[];
 }
