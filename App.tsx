@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {
   useFonts,
@@ -9,13 +8,6 @@ import {
 } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 import AppRoutes from './src/routes/routes';
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-});
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -28,10 +20,8 @@ const App = () => {
 
   return (
     <PaperProvider>
-      <View style={style.container}>
-        <StatusBar style="light" />
-        <AppRoutes />
-      </View>
+      <StatusBar style="light" />
+      <AppRoutes />
     </PaperProvider>
   );
 };
