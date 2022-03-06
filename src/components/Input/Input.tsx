@@ -10,7 +10,7 @@ import { HelperText, TextInput } from 'react-native-paper';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
 interface InputProps {
-  style: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
   left?: ReactNode;
   right?: ReactNode;
   value?: string;
@@ -36,10 +36,11 @@ interface InputProps {
   keyboardType?: KeyboardTypeOptions;
   editable?: boolean | undefined;
   onPressIn?: (event: GestureResponderEvent) => void;
+  mode?: 'flat' | 'outlined';
 }
 
 const Input: React.FC<InputProps> = ({
-  style,
+  mode = 'flat',
   label,
   onChangeText,
   value,
@@ -53,8 +54,7 @@ const Input: React.FC<InputProps> = ({
     <View>
       <TextInput
         {...otherProps}
-        style={style}
-        mode="flat"
+        mode={mode}
         label={label}
         onChangeText={onChangeText}
         value={value}
