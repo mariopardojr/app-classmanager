@@ -45,4 +45,10 @@ export const style = StyleSheet.create({
     marginHorizontal: 30,
     marginTop: 30,
   },
+  modal: {
+    backgroundColor: '#FFF',
+    padding: 20,
+    marginHorizontal: 20,
+    borderRadius: 20,
+  },
 });
