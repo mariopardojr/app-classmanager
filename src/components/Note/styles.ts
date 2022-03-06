@@ -3,8 +3,8 @@ import fonts from '../../styles/fonts';
 
 export const style = StyleSheet.create({
   container: {
-    height: 200,
-    width: 300,
+    height: 210,
+    width: 310,
     padding: 20,
     backgroundColor: '#FA743E',
     borderRadius: 20,
