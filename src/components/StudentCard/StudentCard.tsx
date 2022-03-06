@@ -1,15 +1,11 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
-import { Student } from '../../services/types';
 import AvatarIcon from '../../assets/user-purple.svg';
 import { style } from './styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
 import { useNavigation } from '@react-navigation/native';
-
-interface StudentCardProps {
-  student: Student;
-}
+import { StudentCardProps } from './types';
 
 const StudentCard: React.FC<StudentCardProps> = ({ student, ...rest }) => {
   const navigation =
