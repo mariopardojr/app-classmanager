@@ -59,4 +59,5 @@ export const style = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 20,
   },
+  modalButton: { borderRadius: 20, marginTop: 15 },
 });

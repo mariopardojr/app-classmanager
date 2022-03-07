@@ -95,7 +95,15 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
                         visible={!!errors.note && !!touched.note}
                         right={<TextInput.Affix text={`${values.note.length}/259`} />}
                       />
-                      <Button style={{ borderRadius: 20 }} mode="contained" color="#FA743E" onPress={handleSubmit}>
+                      <Button
+                        style={style.modalButton}
+                        mode="contained"
+                        color="#DB2325"
+                        onPress={() => setEnableAddCardForm(false)}
+                      >
+                        <Text style={{ color: '#FFF' }}>Cancel</Text>
+                      </Button>
+                      <Button style={style.modalButton} mode="contained" color="#FA743E" onPress={handleSubmit}>
                         <Text style={{ color: '#FFF' }}>Add note</Text>
                       </Button>
                     </View>
