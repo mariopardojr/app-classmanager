@@ -1,14 +1,10 @@
 import { ReactNode } from 'react';
-import {
-  GestureResponderEvent,
-  KeyboardTypeOptions,
-  StyleProp,
-  TextStyle,
-} from 'react-native';
+import { GestureResponderEvent, KeyboardTypeOptions, StyleProp, TextStyle } from 'react-native';
 import { RenderProps } from 'react-native-paper/lib/typescript/components/TextInput/types';
 
 export interface InputProps {
   style?: StyleProp<TextStyle>;
+  secureTextEntry?: boolean;
   left?: ReactNode;
   right?: ReactNode;
   value?: string;

@@ -6,6 +6,7 @@ type StudentDetailsParams = {
 
 export type StackRoutes = {
   Home: undefined;
+  Login: undefined;
   'Student Register': undefined;
   'Student Details': StudentDetailsParams;
 };
