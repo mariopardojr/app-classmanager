@@ -23,8 +23,7 @@ const initialValues = {
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { student } = route.params;
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
-  const navigation =
-    useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
   const handleNavigate = () => navigation.navigate('Home');
 
@@ -45,9 +44,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
             <Text style={style.title}>{student.name}</Text>
             <Text style={style.text}>{`Age: ${student.age}`}</Text>
             <Text style={style.text}>{`Job: ${student.job}`}</Text>
-            {!!student.grade && (
-              <Text style={style.text}>{`Grade: ${student.grade}`}</Text>
-            )}
+            {!!student.grade && <Text style={style.text}>{`Grade: ${student.grade}`}</Text>}
             <Text style={style.text}>{`Level: ${student.englishLevel}`}</Text>
           </View>
           {student.imageUrl ? (
@@ -59,12 +56,8 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
         <View style={style.notes}>
           <Text style={style.subtitle}>Notes</Text>
           <TouchableOpacity>
-            <Button
-              style={style.addButton}
-              onPress={handleAddCard}
-              icon="shape-rectangle-plus"
-            >
-              <Text style={{ color: '#FFF' }}>Add card</Text>
+            <Button style={style.addButton} onPress={handleAddCard} icon="shape-rectangle-plus">
+              <Text style={{ color: '#FFF' }}>Add note</Text>
             </Button>
           </TouchableOpacity>
         </View>
@@ -102,9 +95,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
                       onChangeText={handleChange('note')}
                       helperText={errors.note}
                       visible={!!errors.note && !!touched.note}
-                      right={
-                        <TextInput.Affix text={`${values.note.length}/259`} />
-                      }
+                      right={<TextInput.Affix text={`${values.note.length}/259`} />}
                     />
                     <Button mode="contained" onPress={handleSubmit}>
                       Add note

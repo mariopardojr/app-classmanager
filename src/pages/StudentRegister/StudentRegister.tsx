@@ -1,12 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Button, Menu, Switch, TextInput } from 'react-native-paper';
 import Header from '../../components/Header/Header';
 import BackIcon from '../../assets/arrow-left.svg';
@@ -29,8 +23,7 @@ const initialValues = {
 };
 
 const StudentRegister: React.FC = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Register'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Register'>>();
   const [isStudent, setIsStudent] = useState(true);
   const [visible, setVisible] = useState(false);
 
@@ -78,16 +71,7 @@ const StudentRegister: React.FC = () => {
               }}
               validateOnBlur
             >
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                setFieldValue,
-                setFieldError,
-              }) => (
+              {({ values, errors, touched, handleBlur, handleChange, handleSubmit, setFieldValue, setFieldError }) => (
                 <View style={style.formContainer}>
                   <Input
                     style={style.input}
@@ -107,9 +91,7 @@ const StudentRegister: React.FC = () => {
                     value={values.age}
                     onBlur={handleBlur('age')}
                     onChangeText={handleChange('age')}
-                    right={
-                      <TextInput.Icon name="calendar-clock" color="#5201ba" />
-                    }
+                    right={<TextInput.Icon name="calendar-clock" color="#5201ba" />}
                     helperText={errors.age}
                     visible={!!touched.age && !!errors.age}
                     keyboardType="numeric"
@@ -123,13 +105,7 @@ const StudentRegister: React.FC = () => {
                       value={values.job}
                       onBlur={handleBlur('job')}
                       onChangeText={handleChange('job')}
-                      right={
-                        <TextInput.Icon
-                          name="briefcase"
-                          color="#5201ba"
-                          disabled={isStudent}
-                        />
-                      }
+                      right={<TextInput.Icon name="briefcase" color="#5201ba" disabled={isStudent} />}
                       helperText={errors.job}
                       visible={!!errors.job && !!touched.job}
                     />
@@ -154,13 +130,7 @@ const StudentRegister: React.FC = () => {
                     value={values.grade}
                     onBlur={handleBlur('grade')}
                     onChangeText={handleChange('grade')}
-                    right={
-                      <TextInput.Icon
-                        name="school"
-                        color="#5201ba"
-                        disabled={!isStudent}
-                      />
-                    }
+                    right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent} />}
                     helperText={errors.grade}
                     visible={!!errors.grade && !!touched.grade}
                   />
@@ -172,23 +142,14 @@ const StudentRegister: React.FC = () => {
                         <Input
                           editable={false}
                           style={style.input}
-                          error={
-                            !!errors.englishLevel && !!touched.englishLevel
-                          }
+                          error={!!errors.englishLevel && !!touched.englishLevel}
                           label="English level"
                           value={values.englishLevel}
                           onBlur={handleBlur('englishLevel')}
                           onChangeText={handleChange('englishLevel')}
-                          right={
-                            <TextInput.Icon
-                              name="head-lightbulb"
-                              color="#5201ba"
-                            />
-                          }
+                          right={<TextInput.Icon name="head-lightbulb" color="#5201ba" />}
                           helperText={errors.englishLevel}
-                          visible={
-                            !!errors.englishLevel && !!touched.englishLevel
-                          }
+                          visible={!!errors.englishLevel && !!touched.englishLevel}
                           onPressIn={openMenu}
                         />
                       </TouchableOpacity>
@@ -207,7 +168,7 @@ const StudentRegister: React.FC = () => {
                     ))}
                   </Menu>
                   <Button
-                    style={{ marginTop: 10 }}
+                    style={{ marginTop: 10, borderRadius: 20 }}
                     onPress={() => {
                       handleSubmit();
                       setIsStudent(true);

@@ -4,7 +4,6 @@ import fonts from '../../styles/fonts';
 export const style = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
-    marginHorizontal: 5,
     marginVertical: 10,
   },
   input: {
