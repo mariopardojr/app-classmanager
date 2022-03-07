@@ -4,12 +4,7 @@
       "id": 1,
       "name": "Mellanie Reis",
       "imageUrl": "",
-      "notes": [
-        {
-          "title": "Test 2",
-          "note": "Note test 2"
-        }
-      ]
+      "notes": []
     },
     {
       "id": 2,
@@ -26,18 +21,14 @@
           "title": "Lorem ipsum"
         },
         {
-          "id": "2",
-          "note": "Ut lectus leo, ornare et feugiat sed, tincidunt ac turpis. Curabitur ut venenatis purus, et viverra est. Mauris ac semper nisi, luctus euismod lacus. Mauris aliquet tincidunt rutrum. Nunc sit amet justo cursus, finibus turpis sed, fermentum sapien.",
-          "title": "Lorem ipsum"
-        },
-        {
           "id": "3",
-          "note": "Ut lectus leo, ornare et feugiat sed, tincidunt ac turpis. Curabitur ut venenatis purus, et viverra est. Mauris ac semper nisi, luctus euismod lacus. Mauris aliquet tincidunt rutrum. Nunc sit amet justo cursus, finibus turpis sed, fermentum sapien.",
-          "title": "Lorem ipsum"
-        },
-        {
           "title": "Gostos",
           "note": "• Animes\n• Games\n• Séries e filmes de sci-fi\n• Música clássica"
+        },
+        {
+          "title": "Title note",
+          "note": "Note test, note teste, note teste.",
+          "id": "e1f1bd4a-3c67-4b29-84ce-582864887d84"
         }
       ]
     },

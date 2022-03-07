@@ -9,7 +9,6 @@ export const StudentProvider: React.FC = ({ children }) => {
   const [students, setStudents] = useState<Student[]>([]);
 
   const getStudents = useCallback(async (): Promise<void> => {
-    console.log('Chamou nois!!!');
     const resultGetStudents = await StudentService.getStudents();
     setStudents(resultGetStudents);
   }, []);

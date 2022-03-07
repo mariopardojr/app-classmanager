@@ -17,14 +17,14 @@ const createStudent = async (student: Partial<Student>) => {
   });
 };
 
-const addNote = async (id: number, notes: Note[]) => {
+const updateNotes = async (id: number, notes: Note[]) => {
   await api.patch(`/students/${id}`, { notes });
 };
 
 const StudentService = {
   getStudents,
   createStudent,
-  addNote,
+  addNote: updateNotes,
 };
 
 export default StudentService;

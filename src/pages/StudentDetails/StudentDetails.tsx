@@ -15,6 +15,7 @@ import Input from '../../components/Input/Input';
 import StudentService from '../../services/StudentService/studentService';
 import { validationSchema } from './validation';
 import * as Animatable from 'react-native-animatable';
+import Utils from '../../utils/utils';
 
 const initialValues = {
   title: '',
@@ -29,7 +30,8 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const handleNavigate = () => navigation.navigate('Home');
 
   const handleUpdateNote = (newNote: NoteFormValues) => {
-    void StudentService.addNote(student.id, [...student.notes, newNote]);
+    const formatNote = Utils.formatNoteToPatch(newNote);
+    void StudentService.addNote(student.id, [...student.notes, formatNote]);
   };
 
   const handleAddCard = () => {
