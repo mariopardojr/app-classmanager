@@ -63,47 +63,46 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
         </View>
         <NoteList notes={student.notes} />
         <Portal>
-          <Modal
-            visible={enableAddCardForm}
-            onDismiss={() => setEnableAddCardForm(false)}
-            contentContainerStyle={style.modal}
-          >
-            <View>
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={(values, actions) => {
-                  handleUpdateNote(values);
-                  actions.resetForm();
-                }}
-              >
-                {({ handleChange, handleSubmit, values, errors, touched }) => (
-                  <View>
-                    <Input
-                      error={!!errors.title && !!touched.title}
-                      label="Title"
-                      value={values.title}
-                      onChangeText={handleChange('title')}
-                      helperText={errors.title}
-                      visible={!!errors.title && !!touched.title}
-                    />
-                    <Input
-                      error={!!errors.note && !!touched.note}
-                      multiline
-                      label="Note"
-                      value={values.note}
-                      onChangeText={handleChange('note')}
-                      helperText={errors.note}
-                      visible={!!errors.note && !!touched.note}
-                      right={<TextInput.Affix text={`${values.note.length}/259`} />}
-                    />
-                    <Button mode="contained" onPress={handleSubmit}>
-                      Add note
-                    </Button>
-                  </View>
-                )}
-              </Formik>
-            </View>
+          <Modal visible={enableAddCardForm} onDismiss={() => setEnableAddCardForm(false)}>
+            <LinearGradient colors={['#5201ba', '#8a01ba']} style={style.modal}>
+              <Text style={{ ...style.title, marginBottom: 20 }}>New note</Text>
+              <View>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={(values, actions) => {
+                    handleUpdateNote(values);
+                    actions.resetForm();
+                  }}
+                >
+                  {({ handleChange, handleSubmit, values, errors, touched }) => (
+                    <View>
+                      <Input
+                        error={!!errors.title && !!touched.title}
+                        label="Title"
+                        value={values.title}
+                        onChangeText={handleChange('title')}
+                        helperText={errors.title}
+                        visible={!!errors.title && !!touched.title}
+                      />
+                      <Input
+                        error={!!errors.note && !!touched.note}
+                        multiline
+                        label="Note"
+                        value={values.note}
+                        onChangeText={handleChange('note')}
+                        helperText={errors.note}
+                        visible={!!errors.note && !!touched.note}
+                        right={<TextInput.Affix text={`${values.note.length}/259`} />}
+                      />
+                      <Button style={{ borderRadius: 20 }} mode="contained" color="#FA743E" onPress={handleSubmit}>
+                        <Text style={{ color: '#FFF' }}>Add note</Text>
+                      </Button>
+                    </View>
+                  )}
+                </Formik>
+              </View>
+            </LinearGradient>
           </Modal>
         </Portal>
       </View>

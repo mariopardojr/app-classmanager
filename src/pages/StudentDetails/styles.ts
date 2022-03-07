@@ -54,8 +54,8 @@ export const style = StyleSheet.create({
     marginTop: 30,
   },
   modal: {
-    backgroundColor: '#FFF',
-    padding: 20,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
     marginHorizontal: 20,
     borderRadius: 20,
   },
