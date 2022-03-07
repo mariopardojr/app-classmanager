@@ -4,7 +4,13 @@
       "id": 1,
       "name": "Mellanie Reis",
       "imageUrl": "",
-      "notes": []
+      "notes": [
+        {
+          "title": "Refresh",
+          "note": "Refresh test",
+          "id": "ea7faee9-9532-4a9f-802a-e0a25be5e7bb"
+        }
+      ]
     },
     {
       "id": 2,
@@ -29,6 +35,21 @@
           "title": "Title note",
           "note": "Note test, note teste, note teste.",
           "id": "e1f1bd4a-3c67-4b29-84ce-582864887d84"
+        },
+        {
+          "title": "Test",
+          "note": "Teste",
+          "id": "1060f269-7086-4dc3-a4f2-6a83955c1543"
+        },
+        {
+          "title": "Test refresh",
+          "note": "Test refresh",
+          "id": "46ff3467-7ddb-4b3a-928d-fed5383ab0c0"
+        },
+        {
+          "title": "Other test refresh",
+          "note": "Test",
+          "id": "7dd27a9c-5d0a-4a63-987e-5c13b2a6d753"
         }
       ]
     },

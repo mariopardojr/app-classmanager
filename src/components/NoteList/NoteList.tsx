@@ -1,12 +1,13 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import Note from '../Note/Note';
 import { NoteListProps } from './types';
 
-const NoteList: React.FC<NoteListProps> = ({ notes }) => {
+const NoteList: React.FC<NoteListProps> = ({ notes, isRefreshing, handleRefresh }) => {
   return (
     <FlatList
       horizontal
+      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
       showsHorizontalScrollIndicator={false}
       data={notes}
       keyExtractor={(note) => String(note.id)}

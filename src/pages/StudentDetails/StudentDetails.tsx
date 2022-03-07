@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
@@ -16,6 +16,7 @@ import StudentService from '../../services/StudentService/studentService';
 import { validationSchema } from './validation';
 import * as Animatable from 'react-native-animatable';
 import Utils from '../../utils/utils';
+import { useStudent } from '../../context/StudentContext/student';
 
 const initialValues = {
   title: '',
@@ -25,6 +26,8 @@ const initialValues = {
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { student } = route.params;
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { getStudents } = useStudent();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
   const handleNavigate = () => navigation.navigate('Home');
@@ -33,6 +36,12 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
     const formatNote = Utils.formatNoteToPatch(newNote);
     void StudentService.addNote(student.id, [...student.notes, formatNote]);
   };
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    getStudents();
+    setIsRefreshing(false);
+  }, [getStudents]);
 
   const handleAddCard = () => {
     setEnableAddCardForm(true);
@@ -64,7 +73,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
             </Button>
           </TouchableOpacity>
         </View>
-        <NoteList notes={student.notes} />
+        <NoteList notes={student.notes} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
         <Portal>
           <Modal visible={enableAddCardForm} onDismiss={() => setEnableAddCardForm(false)}>
             <Animatable.View animation="fadeInRight" iterationCount={1}>
@@ -77,6 +86,8 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
                     onSubmit={(values, actions) => {
                       handleUpdateNote(values);
                       actions.resetForm();
+                      setEnableAddCardForm(false);
+                      handleRefresh();
                     }}
                   >
                     {({ handleChange, handleSubmit, values, errors, touched }) => (
