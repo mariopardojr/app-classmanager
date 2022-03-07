@@ -99,31 +99,31 @@
       "englishLevel": "Intermediate"
     },
     {
+      "id": 10,
       "name": "Erick",
       "age": "18",
       "job": "Programmer",
       "grade": "",
       "englishLevel": "Beginner/Elementary",
-      "imageUrl": "http://lorempixel.com.br/100/100?",
-      "id": 10
+      "imageUrl": "http://lorempixel.com.br/100/100?"
     },
     {
+      "id": 11,
       "name": "Mario",
       "age": "24",
       "job": "Programmer",
       "grade": "",
       "englishLevel": "Intermediate",
-      "imageUrl": "http://lorempixel.com.br/100/100?981",
-      "id": 11
+      "imageUrl": "http://lorempixel.com.br/100/100?981"
     },
     {
+      "id": 12,
       "name": "Renato William",
       "age": "24",
       "job": "English Teacher",
       "grade": "",
       "englishLevel": "Proficient",
-      "imageUrl": "http://lorempixel.com.br/100/100?452",
-      "id": 12
+      "imageUrl": "http://lorempixel.com.br/100/100?452"
     },
     {
       "name": "Teste",
@@ -141,7 +141,59 @@
       "user": "Mário Pardo",
       "email": "mariopardo@email.com",
       "password": "minhasenhamuitocomplexa",
-      "role": "teacher"
+      "role": "teacher",
+      "students": [
+        {
+          "id": 1,
+          "name": "Mellanie Reis",
+          "imageUrl": "http://lorempixel.com.br/100/100?1"
+        },
+        {
+          "id": 2,
+          "name": "Mariano Aranha",
+          "imageUrl": "http://lorempixel.com.br/100/100?2"
+        },
+        {
+          "id": 3,
+          "name": "Juan Falcão",
+          "imageUrl": "http://lorempixel.com.br/100/100?3"
+        },
+        {
+          "id": 4,
+          "name": "Éder Viana",
+          "imageUrl": "http://lorempixel.com.br/100/100?4"
+        },
+        {
+          "id": 5,
+          "name": "Moisés Rolim",
+          "imageUrl": "http://lorempixel.com.br/100/100?5"
+        },
+        {
+          "id": 6,
+          "name": "Mizael Avelar",
+          "imageUrl": "http://lorempixel.com.br/100/100?6"
+        },
+        {
+          "id": 7,
+          "name": "Domingos Mieiro",
+          "imageUrl": "http://lorempixel.com.br/100/100?7"
+        },
+        {
+          "id": 10,
+          "name": "Erick",
+          "imageUrl": "http://lorempixel.com.br/100/100?8"
+        },
+        {
+          "id": 11,
+          "name": "Mario",
+          "imageUrl": "http://lorempixel.com.br/100/100?9"
+        },
+        {
+          "id": 12,
+          "name": "Renato William",
+          "imageUrl": "http://lorempixel.com.br/100/100?10"
+        }
+      ]
     }
   ]
 }
