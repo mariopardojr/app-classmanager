@@ -8,6 +8,7 @@ import {
 } from '@expo-google-fonts/jost';
 import AppLoading from 'expo-app-loading';
 import AppRoutes from './src/routes/routes';
+import { StudentProvider } from './src/context/StudentContext/student';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -20,8 +21,10 @@ const App = () => {
 
   return (
     <PaperProvider>
-      <StatusBar style="light" />
-      <AppRoutes />
+      <StudentProvider>
+        <StatusBar style="light" />
+        <AppRoutes />
+      </StudentProvider>
     </PaperProvider>
   );
 };
