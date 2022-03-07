@@ -4,17 +4,11 @@ import { style } from './styles';
 import StudentCard from '../StudentCard/StudentCard';
 import { StudentListProps } from './types';
 
-const StudentList: React.FC<StudentListProps> = ({
-  students,
-  isRefreshing,
-  handleRefresh,
-}) => {
+const StudentList: React.FC<StudentListProps> = ({ students, isRefreshing, handleRefresh }) => {
   return (
     <View style={style.container}>
       <FlatList
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
-        }
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
         data={students}
         keyExtractor={(student) => String(student.id)}
         showsVerticalScrollIndicator={false}
