@@ -7,6 +7,7 @@ const NoteList: React.FC<NoteListProps> = ({ notes }) => {
   return (
     <FlatList
       horizontal
+      showsHorizontalScrollIndicator={false}
       data={notes}
       keyExtractor={(note) => String(note.id)}
       renderItem={({ item }) => <Note note={item} />}
