@@ -26,4 +26,12 @@ export const style = StyleSheet.create({
     color: '#FFF',
   },
   loginButton: {},
+  icon: { marginBottom: 50, alignSelf: 'center' },
+  errorMessage: {
+    fontFamily: fonts.heading,
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 10,
+    color: '#e60000',
+  },
 });

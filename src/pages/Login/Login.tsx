@@ -1,11 +1,17 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Input from '../../components/Input/Input';
 import { style } from './styles';
 import { loginValidation } from './validation';
+import ProfessorIcon from '../../assets/professor.svg';
+import { LoginFormValues } from './types';
+import UserService from '../../services/UserService/UserService';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackRoutes } from '../../routes/types';
 
 const initialValues = {
   email: '',
@@ -14,21 +20,30 @@ const initialValues = {
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('' as string | undefined);
+  const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Login'>>();
 
   const handlePasswordVisibility = () => setShowPassword((prevValue) => !prevValue);
 
+  const handleLogin = async (values: LoginFormValues) => {
+    await UserService.authenticate(values.email, values.password)
+      .then((result) => {
+        console.log(result.data);
+        navigation.navigate('Home');
+      })
+      .catch(() => setErrorMessage('Invalid email or password'));
+  };
+
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-      <View style={style.container}>
+      <ScrollView contentContainerStyle={style.container}>
+        <ProfessorIcon width={300} height={200} style={style.icon} />
         <View style={style.header}>
           <Text style={style.title}>Login</Text>
           <Text style={style.text}>Start manage your classes</Text>
         </View>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={loginValidation}
-          onSubmit={(values) => console.log(values)}
-        >
+        {!!errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
+        <Formik initialValues={initialValues} validationSchema={loginValidation} onSubmit={handleLogin}>
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <View style={style.formContainer}>
               <Input
@@ -56,7 +71,7 @@ const Login: React.FC = () => {
             </View>
           )}
         </Formik>
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 };

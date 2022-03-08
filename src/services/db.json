@@ -138,9 +138,9 @@
   "users": [
     {
       "id": 1,
-      "user": "Mário Pardo",
+      "name": "Mário Pardo",
       "email": "mariopardo@email.com",
-      "password": "minhasenhamuitocomplexa",
+      "password": "senha123",
       "role": "teacher",
       "students": [
         {

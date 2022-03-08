@@ -5,7 +5,7 @@ export type Student = {
 };
 
 export interface User {
-  id: string | number;
+  id?: string | number;
   user: string;
   email: string;
   role: string;
