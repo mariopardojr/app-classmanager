@@ -5,9 +5,9 @@ import { UserContextState, User } from './types';
 const UserContext = createContext<UserContextState>({} as UserContextState);
 
 export const UserProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User>({} as User);
 
-  const getUser = async (id: string) => {
+  const getUser = async (id: string): Promise<void> => {
     const result = await UserService.getUser(id);
     setUser(result.user);
   };

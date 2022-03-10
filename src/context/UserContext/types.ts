@@ -1,7 +1,7 @@
 import { Student } from '../StudentContext/types';
 
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   role: string;
@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface UserContextState {
-  user: User | undefined;
+  user: User;
   setUser: (user: User) => void;
   getUser: (id: string) => void;
 }

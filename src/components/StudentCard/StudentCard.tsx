@@ -10,7 +10,7 @@ import { StudentCardProps } from './types';
 const StudentCard: React.FC<StudentCardProps> = ({ student, ...rest }) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
   const handleNavigate = () => {
-    navigation.navigate('Student Details', { student });
+    navigation.navigate('Student Details', { studentId: student._id });
   };
 
   return (

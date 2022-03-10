@@ -13,6 +13,7 @@ import { style } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
+import { useUser } from '../../context/UserContext/user';
 
 const initialValues = {
   name: '',
@@ -26,6 +27,8 @@ const StudentRegister: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Register'>>();
   const [isStudent, setIsStudent] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [errorMessage, setErrorMessge] = useState('');
+  const { user } = useUser();
 
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
@@ -47,8 +50,8 @@ const StudentRegister: React.FC = () => {
     setIsStudent((toogle) => !toogle);
   };
 
-  const handleStudentRegister = (values: StudentRegisterFormValues) => {
-    void StudentService.createStudent(values);
+  const handleStudentRegister = async (values: StudentRegisterFormValues) => {
+    const result = await StudentService.createStudent({ ...values, teacherId: user._id });
   };
 
   return (
@@ -62,6 +65,7 @@ const StudentRegister: React.FC = () => {
               </TouchableOpacity>
             </View>
             <Header text="New student" />
+            {!!errorMessage && <Text>{errorMessage}</Text>}
             <Formik
               initialValues={initialValues}
               validationSchema={registerSchema}

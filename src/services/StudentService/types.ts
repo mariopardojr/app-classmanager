@@ -1,5 +1,5 @@
 export type Note = {
-  id?: string;
+  _id?: string;
   note: string;
   title: string;
 };
@@ -11,6 +11,10 @@ export interface StudentRegister {
   grade: string;
   englishLevel: string;
   imageUrl?: string;
-  notes: Note[];
-  teacherId: string;
+  teacherId?: string;
+}
+
+export interface StudentRegisterResponse extends StudentRegister {
+  _id: string;
+  notes?: Note[];
 }

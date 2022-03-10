@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
@@ -15,8 +15,7 @@ import Input from '../../components/Input/Input';
 import StudentService from '../../services/StudentService/studentService';
 import { validationSchema } from './validation';
 import * as Animatable from 'react-native-animatable';
-import Utils from '../../utils/utils';
-import { useStudent } from '../../context/StudentContext/student';
+import { StudentRegisterResponse } from '../../services/StudentService/types';
 
 const initialValues = {
   title: '',
@@ -24,28 +23,27 @@ const initialValues = {
 };
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
-  const { student } = route.params;
+  const { studentId } = route.params;
+  const [student] = useState({} as StudentRegisterResponse);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { getStudents } = useStudent();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
-  const handleNavigate = () => navigation.navigate('Home', {});
-
-  const handleUpdateNote = (newNote: NoteFormValues) => {
-    const formatNote = Utils.formatNoteToPatch(newNote);
-    void StudentService.addNote(student.id, [...student.notes, formatNote]);
-  };
+  const handleNavigate = () => navigation.navigate('Home');
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    getStudents();
+
     setIsRefreshing(false);
-  }, [getStudents]);
+  }, []);
 
   const handleAddCard = () => {
     setEnableAddCardForm(true);
   };
+
+  useEffect(() => {
+    console.log('studentId =>', studentId);
+  }, []);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
@@ -73,7 +71,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
             </Button>
           </TouchableOpacity>
         </View>
-        <NoteList notes={student.notes} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
+        <NoteList notes={student.notes || []} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
         <Portal>
           <Modal visible={enableAddCardForm} onDismiss={() => setEnableAddCardForm(false)}>
             <Animatable.View animation="fadeInRight" iterationCount={1}>
@@ -84,7 +82,6 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={(values, actions) => {
-                      handleUpdateNote(values);
                       actions.resetForm();
                       setEnableAddCardForm(false);
                       handleRefresh();

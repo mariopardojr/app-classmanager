@@ -1,7 +1,7 @@
 import { IRawStudent } from './IRawStudent';
 
 export interface IRawUser {
-  id: string;
+  _id: string;
   name: string;
   email: string;
   role: string;

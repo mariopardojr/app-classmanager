@@ -35,17 +35,17 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     }
   };
 
-  const handleLogin = async (values: LoginFormValues) => {
-    const result = await UserService.authenticate(values.email, values.password);
+  const handleLogin = async ({ email, password }: LoginFormValues) => {
+    const result = await UserService.authenticate(email, password);
 
     if (result.status !== HttpStatusCode.SUCCESS) {
       // @ts-ignore
       setErrorMessage(result.errorMessage);
       return;
     }
-    await storeToken(result.token);
     setUser(result.user);
     setStudents(result.user.students);
+    await storeToken(result.token);
     navigation.navigate('Home');
   };
 
@@ -53,7 +53,6 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={style.container}>
         <ProfessorIcon width={300} height={200} style={style.icon} />
-        {console.log(errorMessage)}
         <View style={style.header}>
           <Text style={style.title}>Login</Text>
           <Text style={style.text}>Start manage your classes</Text>

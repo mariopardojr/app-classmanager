@@ -1,31 +1,19 @@
-import { ResultErrorFactory } from '../../contracts/result/result-error-factory';
 import { api } from '../api';
 import { IRawAuthenticate } from './interfaces/IRawAuthenticate';
-import { IRawUser } from './interfaces/IRawUser';
 
 const authenticate = async (email: string, password: string): Promise<IRawAuthenticate> => {
-  try {
-    const { data } = await api.post<IRawAuthenticate>('auth/authenticate', {
-      email,
-      password,
-    });
+  const { data } = await api.post<IRawAuthenticate>('auth/authenticate', {
+    email,
+    password,
+  });
 
-    return data;
-  } catch (error) {
-    // @ts-ignore
-    return ResultErrorFactory.create(error);
-  }
+  return data;
 };
 
 const getUser = async (id: string) => {
-  try {
-    const { data } = await api.get(`auth/user/${id}`);
+  const { data } = await api.get(`auth/user/${id}`);
 
-    return data;
-  } catch (error) {
-    // @ts-ignore
-    return ResultErrorFactory.create(error);
-  }
+  return data;
 };
 
 const UserService = {

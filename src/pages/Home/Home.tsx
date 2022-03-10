@@ -11,26 +11,22 @@ import { useStudent } from '../../context/StudentContext/student';
 import { useUser } from '../../context/UserContext/user';
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const { students, setStudents } = useStudent();
   const handleNavigateToRegister = () => navigation.navigate('Student Register');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { user, getUser } = useUser();
+  const { students } = useStudent();
   const isFocused = useIsFocused();
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    getUser(String(user?.id));
+    getUser(user._id);
     setIsRefreshing(false);
-  }, [isFocused]);
-
-  useEffect(() => {
-    setStudents(user?.students || []);
-  }, [students]);
+  }, []);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <View style={style.container}>
-        <Header image="http://lorempixel.com.br/100/100?12" username={user?.name.split(' ')[0]} />
+        <Header image="http://lorempixel.com.br/100/100?12" username={user.name.split(' ')[0]} />
         <View style={style.infoContainer}>
           <View>
             <Text style={style.paragraph}>Please,</Text>
