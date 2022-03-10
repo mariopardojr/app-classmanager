@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../components/Header/Header';
 import AddIcon from '../../assets/add.svg';
@@ -8,29 +8,25 @@ import { HomeProps } from './types';
 import { useIsFocused } from '@react-navigation/native';
 import { style } from './styles';
 import { useStudent } from '../../context/StudentContext/student';
+import { useUser } from '../../context/UserContext/user';
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const { students, getStudents } = useStudent();
+  const { students } = useStudent();
   const handleNavigateToRegister = () => navigation.navigate('Student Register');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { user } = useUser();
   const isFocused = useIsFocused();
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    getStudents();
+    // getStudents();
     setIsRefreshing(false);
-  }, [getStudents]);
-
-  useEffect(() => {
-    if (isFocused) {
-      getStudents();
-    }
-  }, [getStudents, isFocused]);
+  }, [isFocused]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <View style={style.container}>
-        <Header image="http://lorempixel.com.br/100/100?12" username="User" />
+        <Header image="http://lorempixel.com.br/100/100?12" username={user?.name.split(' ')[0]} />
         <View style={style.infoContainer}>
           <View>
             <Text style={style.paragraph}>Please,</Text>

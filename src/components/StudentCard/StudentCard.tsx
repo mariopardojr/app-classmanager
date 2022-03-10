@@ -8,18 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 import { StudentCardProps } from './types';
 
 const StudentCard: React.FC<StudentCardProps> = ({ student, ...rest }) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
   const handleNavigate = () => {
     navigation.navigate('Student Details', { student });
   };
 
   return (
-    <TouchableOpacity
-      style={style.container}
-      {...rest}
-      onPress={handleNavigate}
-    >
+    <TouchableOpacity style={style.container} {...rest} onPress={handleNavigate}>
       {student.imageUrl ? (
         <Image style={style.avatar} source={{ uri: student.imageUrl }} />
       ) : (

@@ -4,7 +4,7 @@ import { HeaderProps } from './types';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
 
-const Header: React.FC<HeaderProps> = ({ text = 'Hello, ', username, image }) => {
+const Header: React.FC<HeaderProps> = ({ text = 'Hello, ', username = 'User', image }) => {
   return (
     <View style={style.container}>
       <View>

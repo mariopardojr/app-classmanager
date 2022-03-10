@@ -1,7 +1,8 @@
 import { Student } from '../services/StudentService/types';
+import { IRawStudent } from '../services/UserService/interfaces/IRawStudent';
 
 type StudentDetailsParams = {
-  student: Student;
+  student: IRawStudent;
 };
 
 export type StackRoutes = {

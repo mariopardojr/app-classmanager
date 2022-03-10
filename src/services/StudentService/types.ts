@@ -5,7 +5,7 @@ export type Note = {
 };
 
 export interface Student {
-  id: number;
+  id: string;
   name: string;
   age: string;
   job: string;

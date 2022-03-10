@@ -1,6 +1,9 @@
-import { Student } from '../../services/StudentService/types';
-
+export interface Student {
+  studentId: string;
+  name: string;
+  imageUrl: string;
+}
 export interface StudentContextState {
   students: Student[];
-  getStudents: () => void;
+  setStudents: (students: Student[]) => void;
 }

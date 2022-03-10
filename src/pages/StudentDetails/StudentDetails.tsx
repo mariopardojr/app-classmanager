@@ -30,7 +30,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { getStudents } = useStudent();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
-  const handleNavigate = () => navigation.navigate('Home');
+  const handleNavigate = () => navigation.navigate('Home', {});
 
   const handleUpdateNote = (newNote: NoteFormValues) => {
     const formatNote = Utils.formatNoteToPatch(newNote);

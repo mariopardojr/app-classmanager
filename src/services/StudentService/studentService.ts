@@ -21,7 +21,7 @@ const updateNotes = async (id: number, notes: Note[]) => {
 const StudentService = {
   getStudents,
   createStudent,
-  addNote: updateNotes,
+  updateNotes,
 };
 
 export default StudentService;

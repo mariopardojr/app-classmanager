@@ -1,30 +1,22 @@
+import { ResultErrorFactory } from '../../contracts/result/result-error-factory';
 import { api } from '../api';
-import { User } from './types';
+import { IRawAuthenticate } from './interfaces/IRawAuthenticate';
 
-type UserAuth = {
-  user: User;
-  token: string;
-};
+const authenticate = async (email: string, password: string): Promise<IRawAuthenticate> => {
+  try {
+    const { data } = await api.post<IRawAuthenticate>('auth/authenticate', {
+      email,
+      password,
+    });
 
-interface AuthenticateResponse {
-  isError?: boolean;
-  status: number;
-  data?: UserAuth;
-  errorMessage?: string;
-}
-
-const getUserById = async (id: string): Promise<User> => {
-  const { data } = await api.get<User>(`/users/${id}`);
-  return data;
-};
-
-const authenticate = async (email: string, password: string): Promise<AuthenticateResponse> => {
-  const { data } = await api.post<AuthenticateResponse>('auth/authenticate', { email, password });
-  return data;
+    return data;
+  } catch (error) {
+    // @ts-ignore
+    return ResultErrorFactory.create(error);
+  }
 };
 
 const UserService = {
-  getUserById,
   authenticate,
 };
 

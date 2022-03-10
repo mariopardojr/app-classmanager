@@ -7,37 +7,53 @@ import Input from '../../components/Input/Input';
 import { style } from './styles';
 import { loginValidation } from './validation';
 import ProfessorIcon from '../../assets/professor.svg';
-import { LoginFormValues } from './types';
+import { LoginFormValues, LoginProps } from './types';
 import UserService from '../../services/UserService/UserService';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackRoutes } from '../../routes/types';
+import { useStudent } from '../../context/StudentContext/student';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { HttpStatusCode } from '../../contracts/result/http-status-code';
+import { useUser } from '../../context/UserContext/user';
 
 const initialValues = {
   email: '',
   password: '',
 };
 
-const Login: React.FC = () => {
+const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('' as string | undefined);
-  const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Login'>>();
+  const [errorMessage, setErrorMessage] = useState('');
+  const { setStudents } = useStudent();
+  const { setUser } = useUser();
 
   const handlePasswordVisibility = () => setShowPassword((prevValue) => !prevValue);
 
+  const storeToken = async (token: string) => {
+    try {
+      await AsyncStorage.setItem('@classmanager_token', JSON.stringify(token));
+    } catch (e) {
+      console.error('Save token failed', e);
+    }
+  };
+
   const handleLogin = async (values: LoginFormValues) => {
-    await UserService.authenticate(values.email, values.password)
-      .then((result) => {
-        console.log(result.data);
-        navigation.navigate('Home');
-      })
-      .catch(() => setErrorMessage('Invalid email or password'));
+    const result = await UserService.authenticate(values.email, values.password);
+
+    if (result.status !== HttpStatusCode.SUCCESS) {
+      // @ts-ignore
+      setErrorMessage(result.errorMessage);
+      return;
+    }
+    await storeToken(result.token);
+    setUser(result.user);
+    setStudents(result.user.students);
+    navigation.navigate('Home');
   };
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={style.container}>
         <ProfessorIcon width={300} height={200} style={style.icon} />
+        {console.log(errorMessage)}
         <View style={style.header}>
           <Text style={style.title}>Login</Text>
           <Text style={style.text}>Start manage your classes</Text>
