@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Header from '../../components/Header/Header';
 import AddIcon from '../../assets/add.svg';
@@ -11,17 +11,21 @@ import { useStudent } from '../../context/StudentContext/student';
 import { useUser } from '../../context/UserContext/user';
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-  const { students } = useStudent();
+  const { students, setStudents } = useStudent();
   const handleNavigateToRegister = () => navigation.navigate('Student Register');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { user } = useUser();
+  const { user, getUser } = useUser();
   const isFocused = useIsFocused();
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
-    // getStudents();
+    getUser(String(user?.id));
     setIsRefreshing(false);
   }, [isFocused]);
+
+  useEffect(() => {
+    setStudents(user?.students || []);
+  }, [students]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>

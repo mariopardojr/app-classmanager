@@ -12,4 +12,5 @@ export interface User {
 export interface UserContextState {
   user: User | undefined;
   setUser: (user: User) => void;
+  getUser: (id: string) => void;
 }
