@@ -4,13 +4,13 @@ export type Note = {
   title: string;
 };
 
-export interface Student {
-  id: string;
+export interface StudentRegister {
   name: string;
   age: string;
   job: string;
   grade: string;
   englishLevel: string;
-  imageUrl: string;
+  imageUrl?: string;
   notes: Note[];
+  teacherId: string;
 }

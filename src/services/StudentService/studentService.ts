@@ -1,17 +1,14 @@
-import Utils from '../../utils/utils';
 import { api } from '../api';
-import { Note, Student } from './types';
+import { Note, StudentRegister } from './types';
 
-const getStudents = async (): Promise<Student[]> => {
-  const { data } = await api.get<Student[]>('/students');
-  return data;
-};
-
-const createStudent = async (student: Partial<Student>) => {
-  await api.post('/students', {
-    ...student,
-    imageUrl: `http://lorempixel.com.br/100/100?${Utils.getRandomNumber()}`,
-  });
+const createStudent = async (student: StudentRegister): Promise<StudentRegister> => {
+  try {
+    const { data } = await api.post<StudentRegister>('/students', student);
+    return data;
+  } catch (error) {
+    // @ts-ignore
+    return ResultErrorFactory.create(error);
+  }
 };
 
 const updateNotes = async (id: number, notes: Note[]) => {
@@ -19,7 +16,6 @@ const updateNotes = async (id: number, notes: Note[]) => {
 };
 
 const StudentService = {
-  getStudents,
   createStudent,
   updateNotes,
 };
