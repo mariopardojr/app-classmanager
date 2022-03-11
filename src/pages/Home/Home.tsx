@@ -9,12 +9,14 @@ import { useIsFocused } from '@react-navigation/native';
 import { style } from './styles';
 import { useStudent } from '../../context/StudentContext/student';
 import { useUser } from '../../context/UserContext/user';
+import { useLoading } from '../../context/LoadingContext/loading';
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
   const handleNavigateToRegister = () => navigation.navigate('Student Register');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { user } = useUser();
   const { students, refreshStudents } = useStudent();
+  const { startLoading, stopLoading } = useLoading();
   const isFocused = useIsFocused();
 
   const handleRefresh = useCallback(() => {
@@ -24,10 +26,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   }, [refreshStudents]);
 
   useEffect(() => {
+    startLoading();
     if (isFocused) {
       refreshStudents();
     }
-  }, [isFocused, refreshStudents]);
+    stopLoading();
+  }, [isFocused, refreshStudents, startLoading, stopLoading]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>

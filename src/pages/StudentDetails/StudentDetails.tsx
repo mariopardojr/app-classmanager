@@ -17,6 +17,7 @@ import { validationSchema } from './validation';
 import * as Animatable from 'react-native-animatable';
 import { IStudent } from '../../interfaces/IStudent';
 import { HttpStatusCode } from '../../contracts/result/http-status-code';
+import { useLoading } from '../../context/LoadingContext/loading';
 
 const initialValues = {
   title: '',
@@ -28,6 +29,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const [student, setStudent] = useState<IStudent>({} as IStudent);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { startLoading, stopLoading } = useLoading();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
   const handleNavigate = () => navigation.navigate('Home');
@@ -42,6 +44,7 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   };
 
   useEffect(() => {
+    startLoading();
     void (async () => {
       const { status, student: data } = await StudentService.getStudentById(studentId);
 
@@ -51,11 +54,11 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
 
       setStudent(data);
     })();
-  }, [navigation, studentId]);
+    stopLoading();
+  }, [navigation, startLoading, stopLoading, studentId]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-      {console.log(student)}
       <View style={style.container}>
         <GoBackButton handleNavigate={handleNavigate} />
         <View style={style.header}>
