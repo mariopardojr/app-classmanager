@@ -13,15 +13,21 @@ import { useUser } from '../../context/UserContext/user';
 const Home: React.FC<HomeProps> = ({ navigation }) => {
   const handleNavigateToRegister = () => navigation.navigate('Student Register');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { user, getUser } = useUser();
-  const { students } = useStudent();
+  const { user } = useUser();
+  const { students, refreshStudents } = useStudent();
   const isFocused = useIsFocused();
 
-  const handleRefresh = useCallback(async () => {
+  const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    getUser(user._id);
+    refreshStudents;
     setIsRefreshing(false);
-  }, []);
+  }, [refreshStudents]);
+
+  useEffect(() => {
+    if (isFocused) {
+      refreshStudents();
+    }
+  }, [isFocused, refreshStudents]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>

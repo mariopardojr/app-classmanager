@@ -1,5 +1,7 @@
-import { Student } from '../../services/UserService/types';
-
 export interface StudentCardProps {
-  student: Student;
+  student: {
+    _id: string;
+    name: string;
+    imageUrl: string;
+  };
 }

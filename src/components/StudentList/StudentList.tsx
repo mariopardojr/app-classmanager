@@ -10,7 +10,7 @@ const StudentList: React.FC<StudentListProps> = ({ students, isRefreshing, handl
       <FlatList
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
         data={students}
-        keyExtractor={(student) => String(student.id)}
+        keyExtractor={(student) => String(student._id)}
         showsVerticalScrollIndicator={false}
         numColumns={2}
         renderItem={({ item: student }) => <StudentCard student={student} />}

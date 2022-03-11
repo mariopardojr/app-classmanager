@@ -50,8 +50,14 @@ const StudentRegister: React.FC = () => {
     setIsStudent((toogle) => !toogle);
   };
 
-  const handleStudentRegister = async (values: StudentRegisterFormValues) => {
-    const result = await StudentService.createStudent({ ...values, teacherId: user._id });
+  const handleStudentRegister = async (values: StudentRegisterFormValues): Promise<void> => {
+    await StudentService.createStudent({ ...values, teacherId: user._id })
+      .then((result) => {
+        navigation.navigate('Student Details', { studentId: result._id });
+      })
+      .catch(() => {
+        setErrorMessge('Student register failed');
+      });
   };
 
   return (
@@ -70,7 +76,7 @@ const StudentRegister: React.FC = () => {
               initialValues={initialValues}
               validationSchema={registerSchema}
               onSubmit={(values, actions) => {
-                handleStudentRegister(values);
+                void handleStudentRegister(values);
                 actions.resetForm();
               }}
               validateOnBlur

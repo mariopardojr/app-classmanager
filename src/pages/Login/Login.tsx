@@ -9,7 +9,6 @@ import { loginValidation } from './validation';
 import ProfessorIcon from '../../assets/professor.svg';
 import { LoginFormValues, LoginProps } from './types';
 import UserService from '../../services/UserService/UserService';
-import { useStudent } from '../../context/StudentContext/student';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpStatusCode } from '../../contracts/result/http-status-code';
 import { useUser } from '../../context/UserContext/user';
@@ -21,8 +20,7 @@ const initialValues = {
 
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const { setStudents } = useStudent();
+  const [errorMessage, setErrorMessage] = useState('' as string | undefined);
   const { setUser } = useUser();
 
   const handlePasswordVisibility = () => setShowPassword((prevValue) => !prevValue);
@@ -39,12 +37,10 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     const result = await UserService.authenticate(email, password);
 
     if (result.status !== HttpStatusCode.SUCCESS) {
-      // @ts-ignore
-      setErrorMessage(result.errorMessage);
+      setErrorMessage(result.message);
       return;
     }
     setUser(result.user);
-    setStudents(result.user.students);
     await storeToken(result.token);
     navigation.navigate('Home');
   };

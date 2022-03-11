@@ -4,7 +4,7 @@ export type Note = {
   title: string;
 };
 
-export interface StudentRegister {
+export interface StudentRegisterData {
   name: string;
   age: string;
   job: string;
@@ -14,7 +14,16 @@ export interface StudentRegister {
   teacherId?: string;
 }
 
-export interface StudentRegisterResponse extends StudentRegister {
+export interface StudentResponseData extends StudentRegisterData {
+  _id: string;
+}
+
+export interface StudentResponse {
+  status: number;
+  student: StudentResponseData;
+}
+
+export interface StudentRegisterResponse extends StudentRegisterData {
   _id: string;
   notes?: Note[];
 }

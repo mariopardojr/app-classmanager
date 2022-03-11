@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { createContext, useContext, useState } from 'react';
-import UserService from '../../services/UserService/UserService';
 import { UserContextState, User } from './types';
 
 const UserContext = createContext<UserContextState>({} as UserContextState);
@@ -7,12 +7,7 @@ const UserContext = createContext<UserContextState>({} as UserContextState);
 export const UserProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>({} as User);
 
-  const getUser = async (id: string): Promise<void> => {
-    const result = await UserService.getUser(id);
-    setUser(result.user);
-  };
-
-  return <UserContext.Provider value={{ user, setUser, getUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => {

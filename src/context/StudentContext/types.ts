@@ -1,9 +1,10 @@
 export interface Student {
-  studentId: string;
+  _id: string;
   name: string;
   imageUrl: string;
 }
 export interface StudentContextState {
   students: Student[];
   setStudents: (students: Student[]) => void;
+  refreshStudents: () => void;
 }

@@ -12,5 +12,4 @@ export interface User {
 export interface UserContextState {
   user: User;
   setUser: (user: User) => void;
-  getUser: (id: string) => void;
 }

@@ -1,7 +1,7 @@
-import { Student } from '../../services/UserService/types';
+import { Student } from '../../context/StudentContext/types';
 
 export interface StudentListProps {
-  students: Student[] | undefined;
+  students: Student[];
   isRefreshing: boolean;
   handleRefresh: () => void;
 }

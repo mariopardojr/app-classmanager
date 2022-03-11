@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
-import { NoteFormValues, StudentDetailsProps } from './types';
+import { StudentDetailsProps } from './types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
@@ -24,7 +24,7 @@ const initialValues = {
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { studentId } = route.params;
-  const [student] = useState({} as StudentRegisterResponse);
+  const [student, setStudent] = useState({} as StudentRegisterResponse);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
@@ -42,11 +42,14 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   };
 
   useEffect(() => {
-    console.log('studentId =>', studentId);
-  }, []);
+    StudentService.getStudentById(studentId)
+      .then((result) => setStudent(result))
+      .catch(() => navigation.navigate('Home'));
+  }, [navigation, setStudent, studentId]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
+      {console.log(student)}
       <View style={style.container}>
         <GoBackButton handleNavigate={handleNavigate} />
         <View style={style.header}>
