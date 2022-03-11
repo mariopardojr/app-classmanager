@@ -5,6 +5,7 @@ import AppLoading from 'expo-app-loading';
 import AppRoutes from './src/routes/routes';
 import { StudentProvider } from './src/context/StudentContext/student';
 import { UserProvider } from './src/context/UserContext/user';
+import { LoadingProvider } from './src/context/LoadingContext/loading';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -19,8 +20,10 @@ const App = () => {
     <PaperProvider>
       <UserProvider>
         <StudentProvider>
-          <StatusBar style="light" />
-          <AppRoutes />
+          <LoadingProvider>
+            <StatusBar style="light" />
+            <AppRoutes />
+          </LoadingProvider>
         </StudentProvider>
       </UserProvider>
     </PaperProvider>
