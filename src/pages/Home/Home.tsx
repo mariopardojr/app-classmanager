@@ -32,7 +32,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <View style={style.container}>
-        <Header image="http://lorempixel.com.br/100/100?12" username={user.name.split(' ')[0]} />
+        <Header image="http://lorempixel.com.br/100/100?12" username={user.name.split(' ')[0] || 'User'} />
         <View style={style.infoContainer}>
           <View>
             <Text style={style.paragraph}>Please,</Text>
