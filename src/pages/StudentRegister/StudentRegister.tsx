@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
 import { useUser } from '../../context/UserContext/user';
+import { HttpStatusCode } from '../../contracts/result/http-status-code';
 
 const initialValues = {
   name: '',
@@ -27,7 +28,7 @@ const StudentRegister: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Register'>>();
   const [isStudent, setIsStudent] = useState(true);
   const [visible, setVisible] = useState(false);
-  const [errorMessage, setErrorMessge] = useState('');
+  const [errorMessage, setErrorMessage] = useState('' as string | undefined);
   const { user } = useUser();
 
   const openMenu = () => setVisible(true);
@@ -51,13 +52,14 @@ const StudentRegister: React.FC = () => {
   };
 
   const handleStudentRegister = async (values: StudentRegisterFormValues): Promise<void> => {
-    await StudentService.createStudent({ ...values, teacherId: user._id })
-      .then((result) => {
-        navigation.navigate('Student Details', { studentId: result._id });
-      })
-      .catch(() => {
-        setErrorMessge('Student register failed');
-      });
+    const { status, student, message } = await StudentService.createStudent({ ...values, teacherId: user._id });
+
+    if (status !== HttpStatusCode.SUCCESS) {
+      setErrorMessage(message);
+      return;
+    }
+
+    navigation.navigate('Student Details', { studentId: student._id });
   };
 
   return (

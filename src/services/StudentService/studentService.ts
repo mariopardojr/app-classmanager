@@ -1,23 +1,27 @@
-import { ResultErrorFactory } from '../../contracts/result/result-error-factory';
+import { AxiosError } from 'axios';
 import { api } from '../api';
-import { IRawStudent } from '../UserService/interfaces/IRawStudent';
-import { Note, StudentRegisterData, StudentRegisterResponse, StudentResponse, StudentResponseData } from './types';
+import { IRawStudent } from '../interfaces/IRawStudent';
+import { StudentResponse, StudentValuesRegister } from './types';
 
-const createStudent = async (student: StudentRegisterData): Promise<StudentRegisterResponse> => {
-  console.log('service req.body =>', student);
-  const { data } = await api.post<StudentRegisterResponse>('/student/register', student);
-  console.log('Student service =>', data);
-  return data;
+const createStudent = async (student: StudentValuesRegister): Promise<StudentResponse> => {
+  try {
+    const { data } = await api.post<StudentResponse>('/student/register', student);
+
+    return data;
+  } catch (error) {
+    const err = error as AxiosError;
+    return err.response?.data;
+  }
 };
 
-const getStudentById = async (studentId: string): Promise<StudentResponseData> => {
+const getStudentById = async (studentId: string): Promise<StudentResponse> => {
   try {
     const { data } = await api.get<StudentResponse>(`/student/${studentId}`);
 
-    return data.student;
+    return data;
   } catch (error) {
-    // @ts-ignore
-    return ResultErrorFactory.create(error);
+    const err = error as AxiosError;
+    return err.response?.data;
   }
 };
 
@@ -27,13 +31,8 @@ const getAllStudentsByTeacherId = async (teacherId: string): Promise<{ status: n
   return data;
 };
 
-const updateNotes = async (id: number, notes: Note[]) => {
-  await api.patch(`/students/${id}`, { notes });
-};
-
 const StudentService = {
   createStudent,
-  updateNotes,
   getStudentById,
   getAllStudentsByTeacherId,
 };

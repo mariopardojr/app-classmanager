@@ -15,7 +15,8 @@ import Input from '../../components/Input/Input';
 import StudentService from '../../services/StudentService/studentService';
 import { validationSchema } from './validation';
 import * as Animatable from 'react-native-animatable';
-import { StudentRegisterResponse } from '../../services/StudentService/types';
+import { IStudent } from '../../interfaces/IStudent';
+import { HttpStatusCode } from '../../contracts/result/http-status-code';
 
 const initialValues = {
   title: '',
@@ -24,7 +25,7 @@ const initialValues = {
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { studentId } = route.params;
-  const [student, setStudent] = useState({} as StudentRegisterResponse);
+  const [student, setStudent] = useState<IStudent>({} as IStudent);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
@@ -33,7 +34,6 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-
     setIsRefreshing(false);
   }, []);
 
@@ -42,10 +42,16 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   };
 
   useEffect(() => {
-    StudentService.getStudentById(studentId)
-      .then((result) => setStudent(result))
-      .catch(() => navigation.navigate('Home'));
-  }, [navigation, setStudent, studentId]);
+    void (async () => {
+      const { status, student: data } = await StudentService.getStudentById(studentId);
+
+      if (status !== HttpStatusCode.SUCCESS) {
+        navigation.navigate('Home');
+      }
+
+      setStudent(data);
+    })();
+  }, [navigation, studentId]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>

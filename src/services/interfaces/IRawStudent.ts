@@ -1,8 +1,4 @@
-type Note = {
-  _id: string;
-  note: string;
-  studentId: string;
-};
+import { IRawNote } from './IRawNote';
 
 export interface IRawStudent {
   _id: string;
@@ -10,7 +6,8 @@ export interface IRawStudent {
   age: number;
   job: string;
   grade?: string;
+  englishLevel: string;
   teacherId: string;
-  notes?: Note[];
+  notes?: IRawNote[];
   imageUrl: string;
 }

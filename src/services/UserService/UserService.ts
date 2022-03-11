@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { api } from '../api';
-import { IRawAuthenticate } from './interfaces/IRawAuthenticate';
-import { IRawUser } from './interfaces/IRawUser';
+import { IRawAuthenticate } from '../interfaces/IRawAuthenticate';
+import { IRawUser } from '../interfaces/IRawUser';
 
 const authenticate = async (email: string, password: string): Promise<IRawAuthenticate> => {
   try {
