@@ -10,8 +10,8 @@ const NoteList: React.FC<NoteListProps> = ({ notes, isRefreshing, handleRefresh 
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
       showsHorizontalScrollIndicator={false}
       data={notes}
-      keyExtractor={(note) => String(note.id)}
-      renderItem={({ item }) => <Note note={item} />}
+      keyExtractor={(note) => String(note._id)}
+      renderItem={({ item: note }) => <Note key={note._id} note={note} handleRefresh={handleRefresh} />}
       style={{ marginTop: 30 }}
     />
   );

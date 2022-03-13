@@ -54,7 +54,7 @@ const StudentRegister: React.FC = () => {
   const handleStudentRegister = async (values: StudentRegisterFormValues): Promise<void> => {
     const { status, student, message } = await StudentService.createStudent({ ...values, teacherId: user._id });
 
-    if (status !== HttpStatusCode.SUCCESS) {
+    if (status !== HttpStatusCode.CREATED) {
       setErrorMessage(message);
       return;
     }

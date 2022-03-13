@@ -3,59 +3,78 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
-import { StudentDetailsProps } from './types';
+import { NoteFormValues, StudentDetailsProps } from './types';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
 import GoBackButton from '../../components/GoBackButton/GoBackButton';
-import { Button, Modal, Portal, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import NoteList from '../../components/NoteList/NoteList';
-import { Formik } from 'formik';
-import Input from '../../components/Input/Input';
 import StudentService from '../../services/StudentService/studentService';
-import { validationSchema } from './validation';
-import * as Animatable from 'react-native-animatable';
 import { IStudent } from '../../interfaces/IStudent';
 import { HttpStatusCode } from '../../contracts/result/http-status-code';
 import { useLoading } from '../../context/LoadingContext/loading';
-
-const initialValues = {
-  title: '',
-  note: '',
-};
+import NoteService from '../../services/NoteService/noteService';
+import NoteModal from '../../components/NoteModal/NoteModal';
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { studentId } = route.params;
   const [student, setStudent] = useState<IStudent>({} as IStudent);
+  const [notes, setNotes] = useState([]);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { startLoading, stopLoading } = useLoading();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
 
+  const fetchStudent = async () => {
+    const { status, student: data } = await StudentService.getStudentById(studentId);
+
+    if (status !== HttpStatusCode.SUCCESS) {
+      navigation.navigate('Home');
+      return;
+    }
+    setStudent(data);
+  };
+
+  const fetchNotes = async () => {
+    const { notes: studentNotes } = await NoteService.getNotesByStudentId(studentId);
+    setNotes(studentNotes);
+  };
+
   const handleNavigate = () => navigation.navigate('Home');
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
+    await fetchStudent();
+    await fetchNotes();
     setIsRefreshing(false);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studentId]);
 
   const handleAddCard = () => {
     setEnableAddCardForm(true);
   };
 
+  const handleCreateNote = async (values: NoteFormValues) => {
+    await NoteService.createNote({ ...values, studentId: studentId });
+    setEnableAddCardForm(false);
+  };
+
   useEffect(() => {
     startLoading();
     void (async () => {
-      const { status, student: data } = await StudentService.getStudentById(studentId);
-
-      if (status !== HttpStatusCode.SUCCESS) {
-        navigation.navigate('Home');
-      }
-
-      setStudent(data);
+      await fetchStudent();
     })();
     stopLoading();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation, startLoading, stopLoading, studentId]);
+
+  useEffect(() => {
+    void (async () => {
+      await fetchNotes();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [studentId]);
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
@@ -83,61 +102,13 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
             </Button>
           </TouchableOpacity>
         </View>
-        <NoteList notes={student.notes || []} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
-        <Portal>
-          <Modal visible={enableAddCardForm} onDismiss={() => setEnableAddCardForm(false)}>
-            <Animatable.View animation="fadeInRight" iterationCount={1}>
-              <LinearGradient colors={['#5201ba', '#8a01ba']} style={style.modal}>
-                <Text style={{ ...style.title, marginBottom: 20 }}>New note</Text>
-                <View>
-                  <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={(values, actions) => {
-                      actions.resetForm();
-                      setEnableAddCardForm(false);
-                      handleRefresh();
-                    }}
-                  >
-                    {({ handleChange, handleSubmit, values, errors, touched }) => (
-                      <View>
-                        <Input
-                          error={!!errors.title && !!touched.title}
-                          label="Title"
-                          value={values.title}
-                          onChangeText={handleChange('title')}
-                          helperText={errors.title}
-                          visible={!!errors.title && !!touched.title}
-                        />
-                        <Input
-                          error={!!errors.note && !!touched.note}
-                          multiline
-                          label="Note"
-                          value={values.note}
-                          onChangeText={handleChange('note')}
-                          helperText={errors.note}
-                          visible={!!errors.note && !!touched.note}
-                          right={<TextInput.Affix text={`${values.note.length}/259`} />}
-                        />
-                        <Button
-                          style={style.modalButton}
-                          mode="contained"
-                          color="#DB2325"
-                          onPress={() => setEnableAddCardForm(false)}
-                        >
-                          <Text style={{ color: '#FFF' }}>Cancel</Text>
-                        </Button>
-                        <Button style={style.modalButton} mode="contained" color="#FA743E" onPress={handleSubmit}>
-                          <Text style={{ color: '#FFF' }}>Add note</Text>
-                        </Button>
-                      </View>
-                    )}
-                  </Formik>
-                </View>
-              </LinearGradient>
-            </Animatable.View>
-          </Modal>
-        </Portal>
+        <NoteList notes={notes} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
+        <NoteModal
+          visible={enableAddCardForm}
+          setVisible={setEnableAddCardForm}
+          handleSubmitButton={handleCreateNote}
+          handleRefresh={handleRefresh}
+        />
       </View>
     </LinearGradient>
   );

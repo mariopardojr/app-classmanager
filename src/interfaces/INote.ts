@@ -1,6 +1,6 @@
-export interface IRawNote {
+export interface INote {
   _id: string;
-  note: string;
   title: string;
+  note: string;
   studentId: string;
 }

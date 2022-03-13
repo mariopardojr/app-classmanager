@@ -1,5 +1,6 @@
-import { Note } from '../../services/StudentService/types';
+import { IRawNote } from '../../services/interfaces/IRawNote';
 
 export interface NoteProps {
-  note: Note;
+  note: IRawNote;
+  handleRefresh?: () => void;
 }
