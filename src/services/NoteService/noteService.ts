@@ -35,9 +35,19 @@ const updateNote = async (note: IRawNote): Promise<void> => {
   }
 };
 
+const deleteNote = async (id: string): Promise<void> => {
+  try {
+    await api.delete(`/note/${id}`);
+  } catch (error) {
+    const err = error as AxiosError;
+    return err.response?.data;
+  }
+};
+
 const NoteService = {
   createNote,
   updateNote,
+  deleteNote,
   getNotesByStudentId,
 };
 

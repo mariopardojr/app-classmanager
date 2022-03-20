@@ -14,6 +14,12 @@ const Note: React.FC<NoteProps> = ({ note, handleRefresh = () => {} }) => {
     setEnable(false);
   };
 
+  const handleDelete = async () => {
+    await NoteService.deleteNote(note._id);
+    setEnable(false);
+    handleRefresh();
+  };
+
   return (
     <TouchableOpacity onPress={() => setEnable(true)}>
       <View style={style.container}>
@@ -29,6 +35,8 @@ const Note: React.FC<NoteProps> = ({ note, handleRefresh = () => {} }) => {
         setVisible={setEnable}
         handleSubmitButton={handleUpdateNote}
         handleRefresh={handleRefresh}
+        submitButton="Update"
+        handleDelete={handleDelete}
       />
     </TouchableOpacity>
   );

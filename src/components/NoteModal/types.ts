@@ -9,4 +9,6 @@ export interface AddNoteModalProps {
   handleSubmitButton: (args: any) => void;
   handleRefresh: () => void;
   initialValues?: NoteInitalValues;
+  submitButton?: string;
+  handleDelete?: () => void;
 }

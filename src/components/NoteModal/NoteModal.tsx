@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Formik } from 'formik';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Button, Modal, Portal, TextInput } from 'react-native-paper';
+import { Button, IconButton, Modal, Portal, TextInput } from 'react-native-paper';
 import Input from '../Input/Input';
 import * as Animatable from 'react-native-animatable';
 import { AddNoteModalProps } from './types';
@@ -20,13 +20,25 @@ const NoteModal: React.FC<AddNoteModalProps> = ({
   handleSubmitButton,
   handleRefresh = () => {},
   initialValues = defaultValues,
+  submitButton = 'Add note',
+  handleDelete,
 }) => {
   return (
     <Portal>
       <Modal visible={enableAddCardForm} onDismiss={() => setEnableAddCardForm(false)}>
         <Animatable.View animation="fadeInRight" iterationCount={1}>
           <LinearGradient colors={['#5201ba', '#8a01ba']} style={style.modal}>
-            <Text style={{ ...style.title, marginBottom: 20 }}>New note</Text>
+            <View style={style.modalHeader}>
+              <Text style={{ ...style.title }}>New note</Text>
+              {handleDelete && (
+                <IconButton
+                  onPress={handleDelete}
+                  icon="delete"
+                  color="#DB2325"
+                  style={{ backgroundColor: '#8a01ba' }}
+                />
+              )}
+            </View>
             <View>
               <Formik
                 initialValues={initialValues}
@@ -67,7 +79,7 @@ const NoteModal: React.FC<AddNoteModalProps> = ({
                       <Text style={{ color: '#FFF' }}>Cancel</Text>
                     </Button>
                     <Button style={style.modalButton} mode="contained" color="#FA743E" onPress={handleSubmit}>
-                      <Text style={{ color: '#FFF' }}>Add note</Text>
+                      <Text style={{ color: '#FFF' }}>{submitButton}</Text>
                     </Button>
                   </View>
                 )}

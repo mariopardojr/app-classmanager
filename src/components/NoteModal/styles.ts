@@ -14,4 +14,10 @@ export const style = StyleSheet.create({
     fontSize: 24,
     color: '#FFF',
   },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
 });
