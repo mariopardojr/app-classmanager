@@ -2,21 +2,17 @@ import { StyleSheet } from 'react-native';
 import fonts from '../../styles/fonts';
 
 export const style = StyleSheet.create({
-  container: {
-    marginBottom: 20,
-    borderRadius: 10,
-    marginHorizontal: 30,
-  },
-  subtitle: {
-    color: '#fff',
-    fontFamily: fonts.heading,
-    fontSize: 18,
-  },
-  lessonsHeader: {
+  notesHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginHorizontal: 30,
     marginTop: 30,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontFamily: fonts.heading,
+    color: '#FFF',
   },
   addButton: {
     backgroundColor: '#FA743E',

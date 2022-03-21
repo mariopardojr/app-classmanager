@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import AvatarIcon from '../../assets/user-orange.svg';
 import { style } from './styles';
 import { NoteFormValues, StudentDetailsProps } from './types';
@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackRoutes } from '../../routes/types';
 import GoBackButton from '../../components/GoBackButton/GoBackButton';
-import { Button } from 'react-native-paper';
 import NoteList from '../../components/NoteList/NoteList';
 import StudentService from '../../services/StudentService/studentService';
 import { IStudent } from '../../interfaces/IStudent';
@@ -16,6 +15,7 @@ import { HttpStatusCode } from '../../contracts/result/http-status-code';
 import { useLoading } from '../../context/LoadingContext/loading';
 import NoteService from '../../services/NoteService/noteService';
 import NoteModal from '../../components/NoteModal/NoteModal';
+import Lessons from '../../components/Lessons/Lessons';
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { studentId } = route.params;
@@ -50,10 +50,6 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
     setIsRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
-
-  const handleAddCard = () => {
-    setEnableAddCardForm(true);
-  };
 
   const handleCreateNote = async (values: NoteFormValues) => {
     await NoteService.createNote({ ...values, studentId: studentId });
@@ -94,15 +90,13 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
             <AvatarIcon width={150} height={150} />
           )}
         </View>
-        <View style={style.notes}>
-          <Text style={style.subtitle}>Notes</Text>
-          <TouchableOpacity>
-            <Button style={style.addButton} onPress={handleAddCard} icon="shape-rectangle-plus">
-              <Text style={{ color: '#FFF' }}>Add note</Text>
-            </Button>
-          </TouchableOpacity>
-        </View>
-        <NoteList notes={notes} isRefreshing={isRefreshing} handleRefresh={handleRefresh} />
+        <NoteList
+          notes={notes}
+          isRefreshing={isRefreshing}
+          handleRefresh={handleRefresh}
+          setEnableCard={setEnableAddCardForm}
+        />
+        <Lessons />
         <NoteModal
           visible={enableAddCardForm}
           setVisible={setEnableAddCardForm}
