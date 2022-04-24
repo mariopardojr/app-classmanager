@@ -1,7 +1,8 @@
-import { Note } from '../../services/StudentService/types';
+import { INote } from '../../interfaces/INote';
 
 export interface NoteListProps {
-  notes: Note[];
+  notes: INote[];
   isRefreshing: boolean;
   handleRefresh: () => void;
+  setEnableCard: (arg: boolean) => void;
 }

@@ -20,10 +20,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const isFocused = useIsFocused();
 
   const handleRefresh = useCallback(() => {
+    startLoading();
     setIsRefreshing(true);
     refreshStudents;
     setIsRefreshing(false);
-  }, [refreshStudents]);
+    stopLoading();
+  }, [refreshStudents, startLoading, stopLoading]);
 
   useEffect(() => {
     startLoading();

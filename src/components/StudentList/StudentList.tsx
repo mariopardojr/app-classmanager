@@ -13,7 +13,7 @@ const StudentList: React.FC<StudentListProps> = ({ students, isRefreshing, handl
         keyExtractor={(student) => String(student._id)}
         showsVerticalScrollIndicator={false}
         numColumns={2}
-        renderItem={({ item: student }) => <StudentCard student={student} />}
+        renderItem={({ item: student }) => <StudentCard key={student._id} student={student} />}
       />
     </View>
   );
