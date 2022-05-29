@@ -4,6 +4,7 @@ import fonts from '../../styles/fonts';
 export const style = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
   },
   header: {
     flexDirection: 'row',

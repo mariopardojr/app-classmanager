@@ -20,15 +20,15 @@ export const style = StyleSheet.create({
     backgroundColor: '#FA743E',
     borderRadius: 20,
     marginHorizontal: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 4.65,
 
-    elevation: 8,
+    // elevation: 8,
   },
   text: {
     fontSize: 12,

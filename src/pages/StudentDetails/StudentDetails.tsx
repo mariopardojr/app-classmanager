@@ -43,10 +43,9 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
 
   const handleNavigate = () => navigation.navigate('Home');
 
-  const handleRefresh = useCallback(async () => {
+  const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    await fetchStudent();
-    await fetchNotes();
+    void Promise.all([fetchStudent(), fetchNotes()]);
     setIsRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
@@ -58,18 +57,11 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
 
   useEffect(() => {
     startLoading();
-    void (async () => {
-      await fetchStudent();
+    void (() => {
+      void Promise.all([fetchStudent(), fetchNotes()]);
     })();
     stopLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation, startLoading, stopLoading, studentId]);
-
-  useEffect(() => {
-    void (async () => {
-      await fetchNotes();
-    })();
-    stopLoading();
   }, [navigation, startLoading, stopLoading, studentId]);
 
   return (
