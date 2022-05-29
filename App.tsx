@@ -6,6 +6,7 @@ import AppRoutes from './src/routes/routes';
 import { StudentProvider } from './src/context/StudentContext/student';
 import { UserProvider } from './src/context/UserContext/user';
 import { LoadingProvider } from './src/context/LoadingContext/loading';
+import Loading from './src/components/Loading/Loading';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -22,6 +23,7 @@ const App = () => {
         <StudentProvider>
           <LoadingProvider>
             <StatusBar style="light" />
+            <Loading />
             <AppRoutes />
           </LoadingProvider>
         </StudentProvider>

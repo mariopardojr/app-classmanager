@@ -12,7 +12,6 @@ import UserService from '../../services/UserService/UserService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpStatusCode } from '../../contracts/result/http-status-code';
 import { useUser } from '../../context/UserContext/user';
-import Loading from '../../components/Loading/Loading';
 import { useLoading } from '../../context/LoadingContext/loading';
 
 const initialValues = {
@@ -22,7 +21,7 @@ const initialValues = {
 
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('' as string | undefined);
+  const [errorMessage, setErrorMessage] = useState('');
   const { setUser } = useUser();
   const { startLoading, stopLoading } = useLoading();
 
@@ -41,8 +40,8 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     const result = await UserService.authenticate(email, password);
 
     if (result.status !== HttpStatusCode.SUCCESS) {
+      stopLoading();
       setErrorMessage(result.message);
-      startLoading();
       return;
     }
     setUser(result.user);
@@ -53,7 +52,6 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
 
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
-      <Loading />
       <ScrollView contentContainerStyle={style.container}>
         <ProfessorIcon width={300} height={200} style={style.icon} />
         <View style={style.header}>
