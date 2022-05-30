@@ -5,4 +5,5 @@ export type StackRoutes = {
   'Student Details': {
     studentId: string;
   };
+  Register: undefined;
 };

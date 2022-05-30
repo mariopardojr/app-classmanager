@@ -4,28 +4,29 @@ import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import Input from '../../components/Input/Input';
+import RegisterForm from '../../assets/fill-form.svg';
+
 import { style } from './styles';
-import { loginValidation } from './validation';
-import ProfessorIcon from '../../assets/professor.svg';
-import { LoginFormValues, LoginProps } from './types';
+import { registerValidation } from './validation';
+import { RegisterProps, UserRegister } from './types';
 import UserService from '../../services/UserService/UserService';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { HttpStatusCode } from '../../contracts/result/http-status-code';
-import { useUser } from '../../context/UserContext/user';
 import { useLoading } from '../../context/LoadingContext/loading';
+import { useUser } from '../../context/UserContext/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialValues = {
+  name: '',
   email: '',
   password: '',
+  role: 'teacher',
 };
 
-const Login: React.FC<LoginProps> = ({ navigation }) => {
+const Register: React.FC<RegisterProps> = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const { setUser } = useUser();
   const { startLoading, stopLoading } = useLoading();
-
-  const handlePasswordVisibility = () => setShowPassword((prevValue) => !prevValue);
+  const { setUser } = useUser();
 
   const storeToken = async (token: string) => {
     try {
@@ -35,13 +36,12 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
     }
   };
 
-  const goToRegister = () => {
-    navigation.navigate('Register');
-  };
+  const handlePasswordVisibility = () => setShowPassword((prevValue) => !prevValue);
 
-  const handleLogin = async ({ email, password }: LoginFormValues) => {
+  const handleRegister = async (values: UserRegister) => {
     startLoading();
-    const result = await UserService.authenticate(email, password);
+
+    const result = await UserService.register(values);
 
     if (result.status !== HttpStatusCode.SUCCESS) {
       stopLoading();
@@ -57,15 +57,23 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
   return (
     <LinearGradient colors={['#5201ba', '#8a01ba']} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={style.container}>
-        <ProfessorIcon width={300} height={200} style={style.icon} />
         <View style={style.header}>
-          <Text style={style.title}>Login</Text>
-          <Text style={style.text}>Start manage your classes</Text>
+          <Text style={style.title}>Register</Text>
+          <RegisterForm width={300} height={200} />
         </View>
         {!!errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
-        <Formik initialValues={initialValues} validationSchema={loginValidation} onSubmit={handleLogin}>
+        <Formik initialValues={initialValues} validationSchema={registerValidation} onSubmit={handleRegister}>
           {({ handleChange, handleSubmit, values, errors, touched }) => (
             <View style={style.formContainer}>
+              <Input
+                label="Name"
+                error={!!errors.name && !!touched.name}
+                value={values.name}
+                onChangeText={handleChange('name')}
+                right={<TextInput.Icon name="account" color="#5201ba" />}
+                helperText={errors.name}
+                visible={!!errors.name && !!touched.name}
+              />
               <Input
                 label="Email"
                 error={!!errors.email && !!touched.email}
@@ -85,11 +93,8 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
                 helperText={errors.password}
                 visible={!!errors.password && !!touched.password}
               />
-              <Button style={style.loginButton} onPress={handleSubmit} color="#FA743E" mode="contained">
-                <Text style={{ color: '#FFFF' }}>Login</Text>
-              </Button>
-              <Button onPress={goToRegister} color="#FA743E" mode="contained">
-                <Text style={{ color: '#FFFF' }}>Sign Up</Text>
+              <Button onPress={handleSubmit} color="#FA743E" mode="contained">
+                <Text style={{ color: '#FFF' }}>Submit</Text>
               </Button>
             </View>
           )}
@@ -99,4 +104,4 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default Register;

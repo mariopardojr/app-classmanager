@@ -13,23 +13,20 @@ export const style = StyleSheet.create({
   },
   formContainer: {
     paddingHorizontal: 20,
-    marginVertical: 10,
+    marginVertical: 20,
   },
   title: {
     fontFamily: fonts.heading,
     fontSize: 34,
     color: '#FFF',
+    marginVertical: 20,
   },
   text: {
     fontFamily: fonts.text,
     fontSize: 14,
     color: '#FFF',
   },
-  loginButton: {
-    color: '#FFF',
-    marginBottom: 20,
-  },
-  icon: { marginBottom: 50, alignSelf: 'center' },
+  loginButton: {},
   errorMessage: {
     fontFamily: fonts.heading,
     fontSize: 18,
