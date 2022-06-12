@@ -122,7 +122,7 @@ const StudentRegister: React.FC = () => {
                       visible={!!errors.job && !!touched.job}
                     />
                     <View style={style.toogle}>
-                      <Text style={style.toogleText}>Is he/she a student?</Text>
+                      <Text style={style.toogleText}>Student?</Text>
                       <Switch
                         value={isStudent}
                         onValueChange={() => {
@@ -134,18 +134,20 @@ const StudentRegister: React.FC = () => {
                       />
                     </View>
                   </View>
-                  <Input
-                    style={style.input}
-                    error={!!errors.grade && !!touched.grade}
-                    disabled={!isStudent}
-                    label="Grade"
-                    value={values.grade}
-                    onBlur={handleBlur('grade')}
-                    onChangeText={handleChange('grade')}
-                    right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent} />}
-                    helperText={errors.grade}
-                    visible={!!errors.grade && !!touched.grade}
-                  />
+                  {isStudent && (
+                    <Input
+                      style={style.input}
+                      error={!!errors.grade && !!touched.grade}
+                      disabled={!isStudent}
+                      label="Grade"
+                      value={values.grade}
+                      onBlur={handleBlur('grade')}
+                      onChangeText={handleChange('grade')}
+                      right={<TextInput.Icon name="school" color="#5201ba" disabled={!isStudent} />}
+                      helperText={errors.grade}
+                      visible={!!errors.grade && !!touched.grade}
+                    />
+                  )}
                   <Menu
                     visible={visible}
                     onDismiss={closeMenu}

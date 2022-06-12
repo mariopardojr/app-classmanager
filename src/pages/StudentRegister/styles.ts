@@ -27,5 +27,6 @@ export const style = StyleSheet.create({
   },
   toogleText: {
     color: '#fff',
+    marginRight: 10,
   },
 });

@@ -42,16 +42,17 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
     startLoading();
 
     const result = await UserService.register(values);
+    console.log(result);
 
-    if (result.status !== HttpStatusCode.SUCCESS) {
+    if (result.status !== HttpStatusCode.CREATED) {
       stopLoading();
       setErrorMessage(result.message);
       return;
     }
     setUser(result.user);
     await storeToken(result.token);
-    stopLoading();
     navigation.navigate('Home');
+    stopLoading();
   };
 
   return (
