@@ -16,12 +16,17 @@ import { useLoading } from '../../context/LoadingContext/loading';
 import NoteService from '../../services/NoteService/noteService';
 import NoteModal from '../../components/NoteModal/NoteModal';
 import Lessons from '../../components/Lessons/Lessons';
+import LessonModal from '../../components/LessonModal/LessonModal';
+import LessonService from '../../services/LessonService/LessonService';
+import { LessonValues } from '../../components/LessonModal/types';
 
 const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
   const { studentId } = route.params;
   const [student, setStudent] = useState<IStudent>({} as IStudent);
   const [notes, setNotes] = useState([]);
+  const [lessons, setLessons] = useState([]);
   const [enableAddCardForm, setEnableAddCardForm] = useState(false);
+  const [enableAddLessonForm, setEnableAddLessonForm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { startLoading, stopLoading } = useLoading();
   const navigation = useNavigation<NativeStackNavigationProp<StackRoutes, 'Student Details'>>();
@@ -41,11 +46,16 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
     setNotes(studentNotes);
   };
 
+  const fetchLessons = async () => {
+    const { lessons: studentLessons } = await LessonService.getLessonsByStudentId(studentId);
+    setLessons(studentLessons);
+  };
+
   const handleNavigate = () => navigation.navigate('Home');
 
   const handleRefresh = useCallback(() => {
     setIsRefreshing(true);
-    void Promise.all([fetchStudent(), fetchNotes()]);
+    void Promise.all([fetchStudent(), fetchNotes(), fetchLessons()]);
     setIsRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
@@ -55,10 +65,21 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
     setEnableAddCardForm(false);
   };
 
+  const handleCreateLesson = async (values: LessonValues) => {
+    await LessonService.createLesson({
+      ...values,
+      date: new Date(values.date),
+      startAt: new Date(values.startAt),
+      endAt: new Date(values.endAt),
+      studentId: studentId,
+    });
+    setEnableAddLessonForm(false);
+  };
+
   useEffect(() => {
     startLoading();
     void (() => {
-      void Promise.all([fetchStudent(), fetchNotes()]);
+      void Promise.all([fetchStudent(), fetchNotes(), fetchLessons()]);
     })();
     stopLoading();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,12 +109,24 @@ const StudentDetails: React.FC<StudentDetailsProps> = ({ route }) => {
           handleRefresh={handleRefresh}
           setEnableCard={setEnableAddCardForm}
         />
-        <Lessons />
         <NoteModal
           visible={enableAddCardForm}
           setVisible={setEnableAddCardForm}
           handleSubmitButton={handleCreateNote}
           handleRefresh={handleRefresh}
+        />
+        <Lessons
+          lessons={lessons}
+          isRefreshing={isRefreshing}
+          handleRefresh={handleRefresh}
+          setEnableCard={setEnableAddLessonForm}
+        />
+        <LessonModal
+          visible={enableAddLessonForm}
+          setVisible={setEnableAddLessonForm}
+          handleSubmitButton={handleCreateLesson}
+          handleRefresh={handleRefresh}
+          submitButton="Add lesson"
         />
       </View>
     </LinearGradient>

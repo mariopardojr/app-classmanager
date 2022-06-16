@@ -4,34 +4,14 @@ import { Button } from 'react-native-paper';
 import fonts from '../../styles/fonts';
 import LessonCard from '../LessonCard/LessonCard';
 import { style } from './styles';
-import { Months } from './types';
+import { LessonProps, Months } from './types';
 
-const Lessons: React.FC = () => {
-  const lessons = [
-    {
-      _id: '1',
-      date: '20/03/2022',
-      done: true,
-      description: 'Lesson 1',
-      duration: '9:00 - 10:00',
-    },
-    {
-      _id: '2',
-      date: '20/03/2022',
-      done: false,
-      description: 'Lesson 2',
-      duration: '9:00 - 10:00',
-    },
-    {
-      _id: '3',
-      date: '20/03/2022',
-      done: false,
-      description: 'Lesson 3',
-      duration: '9:00 - 10:00',
-    },
-  ];
-
+const Lessons: React.FC<LessonProps> = ({ setEnableCard, lessons, handleRefresh }) => {
   const date = new Date();
+
+  const handleAddCard = (): void => {
+    setEnableCard(true);
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -39,7 +19,7 @@ const Lessons: React.FC = () => {
         <View style={style.lessonsHeader}>
           <Text style={style.subtitle}>Lessons</Text>
           <TouchableOpacity>
-            <Button style={style.addButton} onPress={() => {}} icon="shape-rectangle-plus">
+            <Button style={style.addButton} onPress={handleAddCard} icon="shape-rectangle-plus">
               <Text style={{ color: '#FFF' }}>Add</Text>
             </Button>
           </TouchableOpacity>
@@ -54,7 +34,7 @@ const Lessons: React.FC = () => {
         showsVerticalScrollIndicator={false}
         data={lessons}
         keyExtractor={(note) => String(note._id)}
-        renderItem={({ item }) => <LessonCard lesson={item} />}
+        renderItem={({ item }) => <LessonCard handleRefresh={handleRefresh} lesson={item} />}
       />
     </View>
   );

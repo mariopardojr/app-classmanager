@@ -1,11 +1,6 @@
-type Lesson = {
-  _id: string;
-  date: string;
-  done: boolean;
-  description: string;
-  duration: string;
-};
+import { ILesson } from '../../interfaces/ILesson';
 
 export interface LessonCardProps {
-  lesson: Lesson;
+  lesson: ILesson;
+  handleRefresh: () => void;
 }

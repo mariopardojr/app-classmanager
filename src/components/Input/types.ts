@@ -25,7 +25,7 @@ export interface InputProps {
   onFocus?: (args: unknown) => void;
   onBlur?: (args: unknown) => void;
   render?: (props: RenderProps) => ReactNode;
-  helperText: string | undefined;
+  helperText?: string | undefined;
   visible: boolean | undefined;
   keyboardType?: KeyboardTypeOptions;
   editable?: boolean | undefined;

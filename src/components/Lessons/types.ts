@@ -1,3 +1,5 @@
+import { ILesson } from '../../interfaces/ILesson';
+
 export enum Months {
   January,
   February,
@@ -11,4 +13,10 @@ export enum Months {
   October,
   November,
   December,
+}
+export interface LessonProps {
+  lessons: ILesson[];
+  setEnableCard: (value: boolean) => void;
+  isRefreshing: boolean;
+  handleRefresh: () => void;
 }

@@ -10,9 +10,11 @@ const authenticate = async (email: string, password: string): Promise<IRawAuthen
       email,
       password,
     });
+    console.log(data);
     return data;
   } catch (error) {
     const err = error as AxiosError;
+    console.error(err.response?.data);
     return err.response?.data;
   }
 };
